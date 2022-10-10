@@ -361,33 +361,30 @@
     
     \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
     
-    
+\makeatletter
+\renewcommand{\@seccntformat}[1]{}
+\makeatother  
 
 \begin{document}
-    
+    \title{CS 156a - Problem Set 2}
+    \author{Samuel Patrone, 2140749}
     \maketitle
     
+
+The following notebook is publicly available at the following
+\href{https://github.com/spatrone/CS156A-Caltech.git}{link}.
+
+\tableofcontents
     
-
-    
-    \hypertarget{cs-156a---problem-set-2}{%
-\section{CS 156a - Problem Set 2}\label{cs-156a---problem-set-2}}
-
-\hypertarget{patrone-samuel-2140749}{%
-\subsubsection{Patrone Samuel, 2140749}\label{patrone-samuel-2140749}}
-
-The following notebook is publicly available at
-https://github.com/spatrone/CS156A-Caltech.git.
-
     \hypertarget{problem-1}{%
-\subsection{Problem 1}\label{problem-1}}
+\section{Problem 1}\label{problem-1}}
 
 \hypertarget{answer-b-0.01}{%
-\subsubsection{\texorpdfstring{Answer: {[}b{]}
+\subsection{\texorpdfstring{Answer: {[}b{]}
 \(0.01\)}{Answer: {[}b{]} 0.01}}\label{answer-b-0.01}}
 
 \hypertarget{code}{%
-\subsubsection{Code:}\label{code}}
+\subsection{Code:}\label{code}}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{1}{\boxspacing}
@@ -484,14 +481,14 @@ The average value of nu\_min is 0.03756
     { \hspace*{\fill} \\}
     
     \hypertarget{problem-2}{%
-\subsection{Problem 2}\label{problem-2}}
+\section{Problem 2}\label{problem-2}}
 
 \hypertarget{answer-d-c_1-rm-and-c_rand}{%
-\subsubsection{\texorpdfstring{Answer: {[}d{]}
+\subsection{\texorpdfstring{Answer: {[}d{]}
 \(c_1 \, {\rm and}\, c_{rand}\)}{Answer: {[}d{]} c\_1 \textbackslash{}, \{\textbackslash{}rm and\}\textbackslash{}, c\_\{rand\}}}\label{answer-d-c_1-rm-and-c_rand}}
 
 \hypertarget{derivation}{%
-\subsubsection{Derivation:}\label{derivation}}
+\subsection{Derivation:}\label{derivation}}
 
 We expect the single bin's Hoeffding Inequality, in formulae
 
@@ -553,14 +550,14 @@ the \(\nu_{min}\) distribution.
     { \hspace*{\fill} \\}
     
     \hypertarget{problem-3}{%
-\subsection{Problem 3}\label{problem-3}}
+\section{Problem 3}\label{problem-3}}
 
 \hypertarget{answer-e-1-lambda1-mulambdamu}{%
-\subsubsection{\texorpdfstring{Answer: {[}e{]}
+\subsection{\texorpdfstring{Answer: {[}e{]}
 \((1-\lambda)(1-\mu)+\lambda\mu\)}{Answer: {[}e{]} (1-\textbackslash{}lambda)(1-\textbackslash{}mu)+\textbackslash{}lambda\textbackslash{}mu}}\label{answer-e-1-lambda1-mulambdamu}}
 
 \hypertarget{derivation}{%
-\subsubsection{Derivation:}\label{derivation}}
+\subsection{Derivation:}\label{derivation}}
 
 In this problem, there are two binary functions \(f\) and \(h\). Let be
 \(P(h({\bf x})\neq f({\bf x}))=\mu\) the probability of \(h({\bf x})\)
@@ -587,14 +584,14 @@ P(h({\bf x})\neq y)= P(h({\bf x}) = f({\bf x}))P(y \neq f({\bf x})|{\bf x})+P(h(
 \]
 
     \hypertarget{problem-4}{%
-\subsection{Problem 4}\label{problem-4}}
+\section{Problem 4}\label{problem-4}}
 
 \hypertarget{answer-b-0.5}{%
-\subsubsection{\texorpdfstring{Answer: {[}b{]}
+\subsection{\texorpdfstring{Answer: {[}b{]}
 \(0.5\)}{Answer: {[}b{]} 0.5}}\label{answer-b-0.5}}
 
 \hypertarget{derivation}{%
-\subsubsection{Derivation:}\label{derivation}}
+\subsection{Derivation:}\label{derivation}}
 
 We just solve for the derivative of the previous expression with respect
 to \(\mu\) to be zero, i.e.
@@ -605,14 +602,14 @@ to \(\mu\) to be zero, i.e.
 \]
 
     \hypertarget{problems-5-6}{%
-\subsection{Problems 5-6}\label{problems-5-6}}
+\section{Problems 5-6}\label{problems-5-6}}
 
 \hypertarget{answers-c-0.01-c-0.01}{%
-\subsubsection{\texorpdfstring{Answers: {[}c{]} \(0.01\) , {[}c{]}
+\subsection{\texorpdfstring{Answers: {[}c{]} \(0.01\) , {[}c{]}
 \(0.01\)}{Answers: {[}c{]} 0.01 , {[}c{]} 0.01}}\label{answers-c-0.01-c-0.01}}
 
 \hypertarget{code}{%
-\subsubsection{Code:}\label{code}}
+\subsection{Code:}\label{code}}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{1}{\boxspacing}
@@ -723,14 +720,14 @@ Average Eout: 0.04743100000000001
     \end{Verbatim}
 
     \hypertarget{problem-7}{%
-\subsection{Problem 7}\label{problem-7}}
+\section{Problem 7}\label{problem-7}}
 
 \hypertarget{answer-a-1}{%
-\subsubsection{\texorpdfstring{Answer: {[}a{]}
+\subsection{\texorpdfstring{Answer: {[}a{]}
 \(1\)}{Answer: {[}a{]} 1}}\label{answer-a-1}}
 
 \hypertarget{code}{%
-\subsubsection{Code:}\label{code}}
+\subsection{Code:}\label{code}}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{12}{\boxspacing}
@@ -810,14 +807,14 @@ Average iterations for convergence: 4.65
     { \hspace*{\fill} \\}
     
     \hypertarget{problem-8}{%
-\subsection{Problem 8}\label{problem-8}}
+\section{Problem 8}\label{problem-8}}
 
 \hypertarget{answer-d-0.5}{%
-\subsubsection{\texorpdfstring{Answer: {[}d{]}
+\subsection{\texorpdfstring{Answer: {[}d{]}
 \(0.5\)}{Answer: {[}d{]} 0.5}}\label{answer-d-0.5}}
 
 \hypertarget{code}{%
-\subsubsection{Code:}\label{code}}
+\subsection{Code:}\label{code}}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{12}{\boxspacing}
@@ -942,16 +939,16 @@ Average Eout: 0.5248650000000001
     { \hspace*{\fill} \\}
     
     \hypertarget{problems-9-10}{%
-\subsection{Problems 9-10}\label{problems-9-10}}
+\section{Problems 9-10}\label{problems-9-10}}
 
 \hypertarget{answers-a-gx_1x_2rm-sign-1-0.05-x_10.08-x_20.13-x_1-x_21.5-x_121.5-x_22-b-0.1}{%
-\subsubsection{\texorpdfstring{Answers: {[}a{]}
+\subsection{\texorpdfstring{Answers: {[}a{]}
 \(g(x_1,x_2)={\rm sign}(-1-0.05 x_1+0.08 x_2+0.13 x_1 x_2+1.5 x_1^2+1.5 x_2^2)\)
 , {[}b{]}
 \(0.1\)}{Answers: {[}a{]} g(x\_1,x\_2)=\{\textbackslash{}rm sign\}(-1-0.05 x\_1+0.08 x\_2+0.13 x\_1 x\_2+1.5 x\_1\^{}2+1.5 x\_2\^{}2) , {[}b{]} 0.1}}\label{answers-a-gx_1x_2rm-sign-1-0.05-x_10.08-x_20.13-x_1-x_21.5-x_121.5-x_22-b-0.1}}
 
 \hypertarget{code}{%
-\subsubsection{Code:}\label{code}}
+\subsection{Code:}\label{code}}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{15}{\boxspacing}
