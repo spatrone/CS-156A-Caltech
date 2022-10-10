@@ -361,32 +361,30 @@
     
     \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
     
-    
+\makeatletter
+\renewcommand{\@seccntformat}[1]{}
+\makeatother  
 
 \begin{document}
-    
+    \title{CS 156a - Problem Set 1}
+    \author{Samuel Patrone, 2140749}
     \maketitle
     
+
+The following notebook is publicly available at the following
+\href{https://github.com/spatrone/CS156A-Caltech.git}{link}.
+
+\tableofcontents
     
-
-    
-    \hypertarget{cs-156a---problem-set-1}{%
-\section{CS 156a - Problem Set 1}\label{cs-156a---problem-set-1}}
-
-\hypertarget{patrone-samuel-2140749}{%
-\subsection{Patrone Samuel, 2140749}\label{patrone-samuel-2140749}}
-
-The following notebook is publicly available at
-https://github.com/spatrone/CS156A-Caltech.git.
 
     \hypertarget{problem-1}{%
-\subsection{Problem 1}\label{problem-1}}
+\section{Problem 1}\label{problem-1}}
 
 \hypertarget{answer-d}{%
-\subsubsection{Answer: {[}d{]}}\label{answer-d}}
+\subsection{Answer: {[}d{]}}\label{answer-d}}
 
 \hypertarget{derivation}{%
-\subsubsection{Derivation:}\label{derivation}}
+\subsection{Derivation:}\label{derivation}}
 
 (i): the target function is known in advance (from the specifications
 given from US Mint). Nothing is learned by the machine.
@@ -400,13 +398,13 @@ which an evaluation of the output (grading) is provided to the machine
 in order to learn and adjust to develop the best strategy.
 
     \hypertarget{problem-2}{%
-\subsection{Problem 2}\label{problem-2}}
+\section{Problem 2}\label{problem-2}}
 
 \hypertarget{answer-a}{%
-\subsubsection{Answer: {[}a{]}}\label{answer-a}}
+\subsection{Answer: {[}a{]}}\label{answer-a}}
 
 \hypertarget{derivation}{%
-\subsubsection{Derivation:}\label{derivation}}
+\subsection{Derivation:}\label{derivation}}
 
 A generic problem, in order to be best suited for ML, needs three
 requisites:
@@ -436,13 +434,13 @@ analytically.
 characteristics described above -\textgreater{} ML suited
 
     \hypertarget{problem-3}{%
-\subsection{Problem 3}\label{problem-3}}
+\section{Problem 3}\label{problem-3}}
 
 \hypertarget{answer-d}{%
-\subsubsection{Answer: {[}d{]}}\label{answer-d}}
+\subsection{Answer: {[}d{]}}\label{answer-d}}
 
 \hypertarget{derivation}{%
-\subsubsection{Derivation:}\label{derivation}}
+\subsection{Derivation:}\label{derivation}}
 
 To solve this problem, we can use the standard formula for conditional
 probability, which states that
@@ -477,13 +475,13 @@ P(A|B)=\frac{1}{2}\frac{4}{3}=\frac{2}{3}\,.
 \]
 
     \hypertarget{problem-4}{%
-\subsection{Problem 4}\label{problem-4}}
+\section{Problem 4}\label{problem-4}}
 
 \hypertarget{answer-b}{%
-\subsubsection{Answer: {[}b{]}}\label{answer-b}}
+\subsection{Answer: {[}b{]}}\label{answer-b}}
 
 \hypertarget{derivation}{%
-\subsubsection{Derivation:}\label{derivation}}
+\subsection{Derivation:}\label{derivation}}
 
 The probability to get no red marbles in one draw is
 \(\bar{\mu}=(1-\mu)=0.45\). In one sample, we draw 10 marbles
@@ -496,13 +494,13 @@ P(\nu= 0)=\bar{\mu}^{10}=3.405 \times 10^{-4}
 \]
 
     \hypertarget{problem-5}{%
-\subsection{Problem 5}\label{problem-5}}
+\section{Problem 5}\label{problem-5}}
 
 \hypertarget{answer-c}{%
-\subsubsection{Answer: {[}c{]}}\label{answer-c}}
+\subsection{Answer: {[}c{]}}\label{answer-c}}
 
 \hypertarget{derivation}{%
-\subsubsection{Derivation:}\label{derivation}}
+\subsection{Derivation:}\label{derivation}}
 
 The probability of getting no red marbles (\(\nu=0\)) in one sample was
 computed in the previous equation. The complementary probability of
@@ -518,13 +516,13 @@ marbles is
 \[1-P(\nu\neq 0)^{1000}\,=0.289.\]
 
     \hypertarget{problem-6}{%
-\subsection{Problem 6}\label{problem-6}}
+\section{Problem 6}\label{problem-6}}
 
 \hypertarget{answer-e}{%
-\subsubsection{Answer: {[}e{]}}\label{answer-e}}
+\subsection{Answer: {[}e{]}}\label{answer-e}}
 
 \hypertarget{derivation}{%
-\subsubsection{Derivation:}\label{derivation}}
+\subsection{Derivation:}\label{derivation}}
 
 The 8 possible functions \(h_i\) on
 \(\mathcal{X}=\{{\bf x}_6,{\bf x}_7,{\bf x}_8\}\), where
@@ -532,15 +530,18 @@ The 8 possible functions \(h_i\) on
 \({\bf x}_6=\{ 1,0,1\}\\ {\bf x}_7=\{ 1,1,0\}\\ {\bf x}_8=\{ 1,1,1\}\,,\)
 
 are the following:
-
-\$h\_1{[}\mathcal{X}{]}=\{ 1,1,1\}\textbackslash{}
-h\_2{[}\mathcal{X}{]}=\{ 0,1,1\}\textbackslash{}
-h\_3{[}\mathcal{X}{]}=\{ 1,0,1\}\textbackslash{}
-h\_4{[}\mathcal{X}{]}=\{ 1,1,0\}\textbackslash{}
-h\_5{[}\mathcal{X}{]}=\{ 0,0,1\}\textbackslash{}
-h\_6{[}\mathcal{X}{]}=\{ 0,1,0\}\textbackslash{}
-h\_7{[}\mathcal{X}{]}=\{ 1,0,0\}\textbackslash{}
-h\_8{[}\mathcal{X}{]}=\{ 0,0,0\},. \$
+\begin{align}
+\begin{split}
+&h_1{[}\mathcal{X}{]}=\{ 1,1,1\} \\
+&h_2{[}\mathcal{X}{]}=\{ 0,1,1\} \\
+&h_3{[}\mathcal{X}{]}=\{ 1,0,1\} \\
+&h_4{[}\mathcal{X}{]}=\{ 1,1,0\} \\
+&h_5{[}\mathcal{X}{]}=\{ 0,0,1\} \\
+&h_6{[}\mathcal{X}{]}=\{ 0,1,0\} \\
+&h_7{[}\mathcal{X}{]}=\{ 1,0,0\} \\
+&h_8{[}\mathcal{X}{]}=\{ 0,0,0\}\,. 
+\end{split}
+\end{align}
 
 Let's explore the hypothesis function \(g\) scores for different cases,
 where the score \(\Sigma(g)\) is defined as the following:
@@ -605,15 +606,15 @@ Therefore, \(\Sigma(g_4)= 12\).
 Hence, all the hypothesis are equivalent, given the above score formula.
 
     \hypertarget{problem-7---10-the-perceptron-learning-algorithm}{%
-\subsection{Problem 7 - 10: The Perceptron Learning
+\section{Problem 7 - 10: The Perceptron Learning
 Algorithm}\label{problem-7---10-the-perceptron-learning-algorithm}}
 
 \hypertarget{answers-b-c-b-b}{%
-\subsubsection{Answers: {[}b{]} , {[}c{]} , {[}b{]} ,
+\subsection{Answers: {[}b{]} , {[}c{]} , {[}b{]} ,
 {[}b{]}}\label{answers-b-c-b-b}}
 
 \hypertarget{code}{%
-\subsubsection{Code:}\label{code}}
+\subsection{Code:}\label{code}}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{17}{\boxspacing}
