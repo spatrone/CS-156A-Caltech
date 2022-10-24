@@ -1,0 +1,864 @@
+\documentclass[11pt]{article}
+
+    \usepackage[breakable]{tcolorbox}
+    \usepackage{parskip} % Stop auto-indenting (to mimic markdown behaviour)
+    
+    \usepackage{iftex}
+    \ifPDFTeX
+    	\usepackage[T1]{fontenc}
+    	\usepackage{mathpazo}
+    \else
+    	\usepackage{fontspec}
+    \fi
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % Maintain compatibility with old templates. Remove in nbconvert 6.0
+    \let\Oldincludegraphics\includegraphics
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionFormat{nocaption}{}
+    \captionsetup{format=nocaption,aboveskip=0pt,belowskip=0pt}
+
+    \usepackage[Export]{adjustbox} % Used to constrain images to a maximum size
+    \adjustboxset{max size={0.9\linewidth}{0.9\paperheight}}
+    \usepackage{float}
+    \floatplacement{figure}{H} % forces figures to be placed at the correct location
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range
+    \makeatletter % fix for grffile with XeLaTeX
+    \def\Gread@@xetex#1{%
+      \IfFileExists{"\Gin@base".bb}%
+      {\Gread@eps{\Gin@base.bb}}%
+      {\Gread@@xetex@aux#1}%
+    }
+    \makeatother
+
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    % The default LaTeX title has an obnoxious amount of whitespace. By default,
+    % titling removes some of it. It also provides customization options.
+    \usepackage{titling}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    \usepackage{mathrsfs}
+    
+
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+    \definecolor{ansi-default-inverse-fg}{HTML}{FFFFFF}
+    \definecolor{ansi-default-inverse-bg}{HTML}{000000}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatibility definitions
+    \def\gt{>}
+    \def\lt{<}
+    \let\Oldtex\TeX
+    \let\Oldlatex\LaTeX
+    \renewcommand{\TeX}{\textrm{\Oldtex}}
+    \renewcommand{\LaTeX}{\textrm{\Oldlatex}}
+    % Document parameters
+    % Document title
+    \title{Pset\_4}
+    
+    
+    
+    
+    
+% Pygments definitions
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % For linebreaks inside Verbatim environment from package fancyvrb. 
+    \makeatletter
+        \newbox\Wrappedcontinuationbox 
+        \newbox\Wrappedvisiblespacebox 
+        \newcommand*\Wrappedvisiblespace {\textcolor{red}{\textvisiblespace}} 
+        \newcommand*\Wrappedcontinuationsymbol {\textcolor{red}{\llap{\tiny$\m@th\hookrightarrow$}}} 
+        \newcommand*\Wrappedcontinuationindent {3ex } 
+        \newcommand*\Wrappedafterbreak {\kern\Wrappedcontinuationindent\copy\Wrappedcontinuationbox} 
+        % Take advantage of the already applied Pygments mark-up to insert 
+        % potential linebreaks for TeX processing. 
+        %        {, <, #, %, $, ' and ": go to next line. 
+        %        _, }, ^, &, >, - and ~: stay at end of broken line. 
+        % Use of \textquotesingle for straight quote. 
+        \newcommand*\Wrappedbreaksatspecials {% 
+            \def\PYGZus{\discretionary{\char`\_}{\Wrappedafterbreak}{\char`\_}}% 
+            \def\PYGZob{\discretionary{}{\Wrappedafterbreak\char`\{}{\char`\{}}% 
+            \def\PYGZcb{\discretionary{\char`\}}{\Wrappedafterbreak}{\char`\}}}% 
+            \def\PYGZca{\discretionary{\char`\^}{\Wrappedafterbreak}{\char`\^}}% 
+            \def\PYGZam{\discretionary{\char`\&}{\Wrappedafterbreak}{\char`\&}}% 
+            \def\PYGZlt{\discretionary{}{\Wrappedafterbreak\char`\<}{\char`\<}}% 
+            \def\PYGZgt{\discretionary{\char`\>}{\Wrappedafterbreak}{\char`\>}}% 
+            \def\PYGZsh{\discretionary{}{\Wrappedafterbreak\char`\#}{\char`\#}}% 
+            \def\PYGZpc{\discretionary{}{\Wrappedafterbreak\char`\%}{\char`\%}}% 
+            \def\PYGZdl{\discretionary{}{\Wrappedafterbreak\char`\$}{\char`\$}}% 
+            \def\PYGZhy{\discretionary{\char`\-}{\Wrappedafterbreak}{\char`\-}}% 
+            \def\PYGZsq{\discretionary{}{\Wrappedafterbreak\textquotesingle}{\textquotesingle}}% 
+            \def\PYGZdq{\discretionary{}{\Wrappedafterbreak\char`\"}{\char`\"}}% 
+            \def\PYGZti{\discretionary{\char`\~}{\Wrappedafterbreak}{\char`\~}}% 
+        } 
+        % Some characters . , ; ? ! / are not pygmentized. 
+        % This macro makes them "active" and they will insert potential linebreaks 
+        \newcommand*\Wrappedbreaksatpunct {% 
+            \lccode`\~`\.\lowercase{\def~}{\discretionary{\hbox{\char`\.}}{\Wrappedafterbreak}{\hbox{\char`\.}}}% 
+            \lccode`\~`\,\lowercase{\def~}{\discretionary{\hbox{\char`\,}}{\Wrappedafterbreak}{\hbox{\char`\,}}}% 
+            \lccode`\~`\;\lowercase{\def~}{\discretionary{\hbox{\char`\;}}{\Wrappedafterbreak}{\hbox{\char`\;}}}% 
+            \lccode`\~`\:\lowercase{\def~}{\discretionary{\hbox{\char`\:}}{\Wrappedafterbreak}{\hbox{\char`\:}}}% 
+            \lccode`\~`\?\lowercase{\def~}{\discretionary{\hbox{\char`\?}}{\Wrappedafterbreak}{\hbox{\char`\?}}}% 
+            \lccode`\~`\!\lowercase{\def~}{\discretionary{\hbox{\char`\!}}{\Wrappedafterbreak}{\hbox{\char`\!}}}% 
+            \lccode`\~`\/\lowercase{\def~}{\discretionary{\hbox{\char`\/}}{\Wrappedafterbreak}{\hbox{\char`\/}}}% 
+            \catcode`\.\active
+            \catcode`\,\active 
+            \catcode`\;\active
+            \catcode`\:\active
+            \catcode`\?\active
+            \catcode`\!\active
+            \catcode`\/\active 
+            \lccode`\~`\~ 	
+        }
+    \makeatother
+
+    \let\OriginalVerbatim=\Verbatim
+    \makeatletter
+    \renewcommand{\Verbatim}[1][1]{%
+        %\parskip\z@skip
+        \sbox\Wrappedcontinuationbox {\Wrappedcontinuationsymbol}%
+        \sbox\Wrappedvisiblespacebox {\FV@SetupFont\Wrappedvisiblespace}%
+        \def\FancyVerbFormatLine ##1{\hsize\linewidth
+            \vtop{\raggedright\hyphenpenalty\z@\exhyphenpenalty\z@
+                \doublehyphendemerits\z@\finalhyphendemerits\z@
+                \strut ##1\strut}%
+        }%
+        % If the linebreak is at a space, the latter will be displayed as visible
+        % space at end of first line, and a continuation symbol starts next line.
+        % Stretch/shrink are however usually zero for typewriter font.
+        \def\FV@Space {%
+            \nobreak\hskip\z@ plus\fontdimen3\font minus\fontdimen4\font
+            \discretionary{\copy\Wrappedvisiblespacebox}{\Wrappedafterbreak}
+            {\kern\fontdimen2\font}%
+        }%
+        
+        % Allow breaks at special characters using \PYG... macros.
+        \Wrappedbreaksatspecials
+        % Breaks at punctuation characters . , ; ? ! and / need catcode=\active 	
+        \OriginalVerbatim[#1,codes*=\Wrappedbreaksatpunct]%
+    }
+    \makeatother
+
+    % Exact colors from NB
+    \definecolor{incolor}{HTML}{303F9F}
+    \definecolor{outcolor}{HTML}{D84315}
+    \definecolor{cellborder}{HTML}{CFCFCF}
+    \definecolor{cellbackground}{HTML}{F7F7F7}
+    
+    % prompt
+    \makeatletter
+    \newcommand{\boxspacing}{\kern\kvtcb@left@rule\kern\kvtcb@boxsep}
+    \makeatother
+    \newcommand{\prompt}[4]{
+        \ttfamily\llap{{\color{#2}[#3]:\hspace{3pt}#4}}\vspace{-\baselineskip}
+    }
+    
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+\begin{document}
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{cs-156a---problem-set-4}{%
+\section{CS 156a - Problem Set 4}\label{cs-156a---problem-set-4}}
+
+\hypertarget{patrone-samuel-2140749}{%
+\subsection{Patrone Samuel, 2140749}\label{patrone-samuel-2140749}}
+
+The following notebook is publicly available at
+https://github.com/spatrone/CS156A-Caltech.git.
+
+    \hypertarget{problem-1}{%
+\subsection{Problem 1}\label{problem-1}}
+
+\hypertarget{answer-d-460000}{%
+\subsubsection{\texorpdfstring{Answer: {[}d{]}
+\(460,000\)}{Answer: {[}d{]} 460,000}}\label{answer-d-460000}}
+
+\hypertarget{derivation}{%
+\subsubsection{Derivation:}\label{derivation}}
+
+The VC generalization bound states that, with probability at least
+\(1-\delta\):
+
+\[
+E_{out}(g)\le E_{in}(g) + \Omega(N,\mathcal{H},\delta)\,,
+\]
+
+where \(\Omega(N,\mathcal{H},\delta)\) is the generalization error that
+can be written as a function of the number of samples \(N\), the growth
+function \(m_{\mathcal{H}}(N)\) for the hypothesis set \(\mathcal{H}\)
+and the confidence parameter \(\delta\) as the following
+
+\[
+\Omega(N,\mathcal{H},\delta)=\sqrt{\frac{1}{8N}\log{\left(\frac{4 m_{\mathcal{H}}(2N)}{\delta}\right)}}\le \sqrt{\frac{1}{8N}\log{\left(\frac{4 (2N)^{d_{VC}}}{\delta}\right)}}\,.
+\]
+
+For the growth function \(m_{\mathcal{H}}(N)\) we used the polynomial
+bound
+
+\[
+m_{\mathcal{H}}(N)\le N^{d_{VC}}
+\]
+
+where \(d_{VC}\) is the VC dimension of the hypothesis set
+\(\mathcal{H}\).
+
+In the following, a simple code to estimate the required number of
+sample \(N\) if we want \(\Omega\) to be a specific value
+\texttt{Omega\_value} within an error given by \texttt{eps}.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{73}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k+kn}{import} \PY{n+nn}{math} \PY{k}{as} \PY{n+nn}{m}
+\PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+
+\PY{k}{def} \PY{n+nf}{VC\PYZus{}bound}\PY{p}{(}\PY{n}{N}\PY{p}{,}\PY{n}{d\PYZus{}vc}\PY{p}{,}\PY{n}{delta}\PY{p}{)}\PY{p}{:}
+    \PY{k}{return} \PY{n}{m}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{l+m+mi}{8}\PY{o}{/}\PY{n}{N}\PY{o}{*}\PY{p}{(}\PY{n}{m}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}\PY{o}{+}\PY{n}{d\PYZus{}vc}\PY{o}{*}\PY{n}{m}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{N}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{m}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{delta}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+
+\PY{k}{def} \PY{n+nf}{find\PYZus{}N}\PY{p}{(}\PY{n}{d\PYZus{}vc}\PY{p}{,}\PY{n}{delta}\PY{p}{,}\PY{n}{Omega\PYZus{}value}\PY{p}{,}\PY{n}{eps}\PY{p}{)}\PY{p}{:}
+    \PY{n}{error}\PY{o}{=}\PY{l+m+mi}{1}
+    \PY{n}{N}\PY{o}{=}\PY{l+m+mi}{1}
+    \PY{k}{while}\PY{p}{(}\PY{n}{error}\PY{o}{\PYZgt{}}\PY{n}{eps}\PY{p}{)}\PY{p}{:}
+        \PY{n}{error}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{p}{(}\PY{n}{VC\PYZus{}bound}\PY{p}{(}\PY{n}{N}\PY{p}{,}\PY{n}{d\PYZus{}vc}\PY{p}{,}\PY{n}{delta}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{n}{Omega\PYZus{}value}\PY{p}{)}\PY{o}{/}\PY{n}{Omega\PYZus{}value}\PY{p}{)}
+        \PY{k}{if}\PY{p}{(}\PY{n}{error}\PY{o}{\PYZgt{}}\PY{n}{eps}\PY{p}{)}\PY{p}{:} \PY{n}{N}\PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}
+    \PY{k}{return} \PY{n}{N}  
+
+\PY{n}{find\PYZus{}N}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mf}{0.05}\PY{p}{,}\PY{l+m+mf}{0.05}\PY{p}{,}\PY{l+m+mf}{0.00001}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\prompt{Out}{outcolor}{73}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+452948
+\end{Verbatim}
+\end{tcolorbox}
+        
+    \hypertarget{problem-2}{%
+\subsection{Problem 2}\label{problem-2}}
+
+\hypertarget{answer-d-rm-devroye-epsilon-le-sqrtfrac12nbig4epsilon1epsilonlogfrac4-m_mathcalhn2deltabig}{%
+\subsubsection{\texorpdfstring{Answer: {[}d{]}
+\({\rm Devroye}\; \epsilon \le \sqrt{\frac{1}{2N}\big(4\epsilon(1+\epsilon)+\log{\frac{4 m_{\mathcal{H}}(N^2)}{\delta}}\big)}\)}{Answer: {[}d{]} \{\textbackslash{}rm Devroye\}\textbackslash{}; \textbackslash{}epsilon \textbackslash{}le \textbackslash{}sqrt\{\textbackslash{}frac\{1\}\{2N\}\textbackslash{}big(4\textbackslash{}epsilon(1+\textbackslash{}epsilon)+\textbackslash{}log\{\textbackslash{}frac\{4 m\_\{\textbackslash{}mathcal\{H\}\}(N\^{}2)\}\{\textbackslash{}delta\}\}\textbackslash{}big)\}}}\label{answer-d-rm-devroye-epsilon-le-sqrtfrac12nbig4epsilon1epsilonlogfrac4-m_mathcalhn2deltabig}}
+
+\hypertarget{code}{%
+\subsubsection{Code:}\label{code}}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{171}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+
+\PY{k}{def} \PY{n+nf}{Rademacher}\PY{p}{(}\PY{n}{N}\PY{p}{,}\PY{n}{d\PYZus{}vc}\PY{p}{,}\PY{n}{delta}\PY{p}{)}\PY{p}{:}
+    \PY{k}{return} \PY{n}{m}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{/}\PY{n}{N}\PY{o}{*}\PY{p}{(}\PY{n}{m}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{N}\PY{p}{)}\PY{o}{+}\PY{n}{m}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{N}\PY{p}{)}\PY{o}{*}\PY{n}{d\PYZus{}vc}\PY{p}{)}\PY{p}{)}\PY{o}{+}\PY{n}{m}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{/}\PY{n}{N}\PY{o}{*}\PY{n}{m}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{delta}\PY{p}{)}\PY{p}{)}\PY{o}{+}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{N}
+
+\PY{k}{def} \PY{n+nf}{Parrondo\PYZus{}Broek\PYZus{}impl}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{N}\PY{p}{,}\PY{n}{d\PYZus{}vc}\PY{p}{,}\PY{n}{delta}\PY{p}{)}\PY{p}{:}
+    \PY{k}{return} \PY{p}{[}\PY{n}{m}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{N}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{x}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{+}\PY{p}{(}\PY{n}{m}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{l+m+mi}{6}\PY{p}{)}\PY{o}{+}\PY{n}{d\PYZus{}vc}\PY{o}{*}\PY{n}{m}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{N}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{n}{m}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{delta}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+
+\PY{k}{def} \PY{n+nf}{Devroye\PYZus{}impl}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{N}\PY{p}{,}\PY{n}{d\PYZus{}vc}\PY{p}{,}\PY{n}{delta}\PY{p}{)}\PY{p}{:}
+    \PY{k}{return} \PY{p}{[}\PY{n}{m}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{N}\PY{p}{)}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{4}\PY{o}{*}\PY{n}{x}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{+}\PY{n}{x}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{o}{+}\PY{p}{(}\PY{n}{m}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}\PY{o}{+}\PY{n}{m}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{N}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{d\PYZus{}vc}\PY{o}{\PYZhy{}}\PY{n}{m}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{delta}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+
+\PY{k}{def} \PY{n+nf}{implicit\PYZus{}solve}\PY{p}{(}\PY{n}{func}\PY{p}{,}\PY{n}{N}\PY{p}{,}\PY{n}{d\PYZus{}vc}\PY{p}{,}\PY{n}{delta}\PY{p}{,}\PY{n}{eps}\PY{o}{=}\PY{l+m+mf}{0.001}\PY{p}{,}\PY{n}{xleft}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{xright}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+    \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{n}{xleft}\PY{p}{,} \PY{n}{xright}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{int}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{eps}\PY{p}{)}\PY{o}{*}\PY{n}{xright}\PY{p}{)}
+    \PY{n}{y}\PY{o}{=}\PY{n}{func}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{N}\PY{p}{,}\PY{n}{d\PYZus{}vc}\PY{p}{,}\PY{n}{delta}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{n}{x}
+    \PY{n}{root} \PY{o}{=} \PY{k+kc}{None}  
+    \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+        \PY{k}{if} \PY{n}{y}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{*}\PY{n}{y}\PY{p}{[}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZlt{}} \PY{l+m+mi}{0}\PY{p}{:}
+            \PY{n}{root} \PY{o}{=} \PY{n}{x}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{x}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{y}\PY{p}{[}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{y}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{n}{y}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+            \PY{k}{break} 
+    \PY{k}{if} \PY{n}{root} \PY{o+ow}{is} \PY{k+kc}{None}\PY{p}{:}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Error: Could not find any root in the interval[}\PY{l+s+si}{\PYZob{}xleft\PYZcb{}}\PY{l+s+s1}{,}\PY{l+s+si}{\PYZob{}xright\PYZcb{}}\PY{l+s+s1}{] for }\PY{l+s+si}{\PYZob{}func\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+    \PY{k}{else}\PY{p}{:} \PY{k}{return} \PY{n}{root}
+
+\PY{k}{def} \PY{n+nf}{print\PYZus{}bounds}\PY{p}{(}\PY{n}{N}\PY{p}{,}\PY{n}{xleft}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{xright}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{)}\PY{p}{:}
+    \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{For N=}\PY{l+s+si}{\PYZob{}N\PYZcb{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{ Original VC Bound=}\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{VC\PYZus{}bound(N,d\PYZus{}vc,delta):.3f\PYZcb{} }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{ Rademacher Bound=}\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{Rademacher(N,d\PYZus{}vc,delta):.3f\PYZcb{} }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{ Parrondo Broek Bound =}\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{implicit\PYZus{}solve(Parrondo\PYZus{}Broek\PYZus{}impl,N,d\PYZus{}vc,delta,xleft=xleft,xright=xright):.3f\PYZcb{} }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{ Devroye Bound=}\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{implicit\PYZus{}solve(Devroye\PYZus{}impl,N,d\PYZus{}vc,delta,xleft=xleft,xright=xright):.3f\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{173}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{N}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{5000}\PY{p}{,}\PY{l+m+mi}{10001}\PY{p}{)}
+\PY{n}{d\PYZus{}vc}\PY{o}{=}\PY{l+m+mi}{50}
+\PY{n}{delta}\PY{o}{=}\PY{l+m+mf}{0.05}
+\PY{n}{xleft}\PY{o}{=}\PY{l+m+mi}{0}
+\PY{n}{xright}\PY{o}{=}\PY{l+m+mi}{1}
+
+\PY{n}{VC\PYZus{}bound\PYZus{}vals}\PY{o}{=}\PY{p}{[}\PY{n}{VC\PYZus{}bound}\PY{p}{(}\PY{n}{N}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,}\PY{n}{d\PYZus{}vc}\PY{p}{,}\PY{n}{delta}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{N}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+\PY{n}{Rademacher\PYZus{}vals}\PY{o}{=}\PY{p}{[}\PY{n}{Rademacher}\PY{p}{(}\PY{n}{N}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,}\PY{n}{d\PYZus{}vc}\PY{p}{,}\PY{n}{delta}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{N}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+\PY{n}{Parrondo\PYZus{}Broek\PYZus{}vals}\PY{o}{=}\PY{p}{[}\PY{n}{implicit\PYZus{}solve}\PY{p}{(}\PY{n}{Parrondo\PYZus{}Broek\PYZus{}impl}\PY{p}{,}\PY{n}{N}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,}\PY{n}{d\PYZus{}vc}\PY{p}{,}\PY{n}{delta}\PY{p}{,}\PY{n}{xleft}\PY{o}{=}\PY{n}{xleft}\PY{p}{,}\PY{n}{xright}\PY{o}{=}\PY{n}{xright}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{N}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+\PY{n}{Devroye\PYZus{}vals}\PY{o}{=}\PY{p}{[}\PY{n}{implicit\PYZus{}solve}\PY{p}{(}\PY{n}{Devroye\PYZus{}impl}\PY{p}{,}\PY{n}{N}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,}\PY{n}{d\PYZus{}vc}\PY{p}{,}\PY{n}{delta}\PY{p}{,}\PY{n}{xleft}\PY{o}{=}\PY{n}{xleft}\PY{p}{,}\PY{n}{xright}\PY{o}{=}\PY{n}{xright}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{N}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+
+\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{N}\PY{p}{,}\PY{n}{VC\PYZus{}bound\PYZus{}vals}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{VC bound}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{N}\PY{p}{,}\PY{n}{Rademacher\PYZus{}vals}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Rademacher bound}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{N}\PY{p}{,}\PY{n}{Parrondo\PYZus{}Broek\PYZus{}vals}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Parrondo/Broek Bound}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{N}\PY{p}{,}\PY{n}{Devroye\PYZus{}vals}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Devroye Bound}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{p}{[}\PY{l+m+mf}{1.05}\PY{p}{,}\PY{l+m+mf}{0.7}\PY{p}{]}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_5_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{178}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{print\PYZus{}bounds}\PY{p}{(}\PY{l+m+mi}{10000}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+For N=10000
+ Original VC Bound=0.632
+ Rademacher Bound=0.342
+ Parrondo Broek Bound =0.224
+ Devroye Bound=0.215
+    \end{Verbatim}
+
+    \hypertarget{problem-3}{%
+\subsection{Problem 3}\label{problem-3}}
+
+\hypertarget{answer-c-rm-parrondoand-van-den-broek-epsilon-le-sqrtfrac1nbig2epsilonlogfrac6-m_mathcalh2ndeltabig}{%
+\subsubsection{\texorpdfstring{Answer: {[}c{]}
+\({\rm Parrondo\,and \, Van\, den \,Broek:}\; \epsilon \le \sqrt{\frac{1}{N}\big(2\epsilon+\log{\frac{6 m_{\mathcal{H}}(2N)}{\delta}}\big)}\)}{Answer: {[}c{]} \{\textbackslash{}rm Parrondo\textbackslash{},and \textbackslash{}, Van\textbackslash{}, den \textbackslash{},Broek:\}\textbackslash{}; \textbackslash{}epsilon \textbackslash{}le \textbackslash{}sqrt\{\textbackslash{}frac\{1\}\{N\}\textbackslash{}big(2\textbackslash{}epsilon+\textbackslash{}log\{\textbackslash{}frac\{6 m\_\{\textbackslash{}mathcal\{H\}\}(2N)\}\{\textbackslash{}delta\}\}\textbackslash{}big)\}}}\label{answer-c-rm-parrondoand-van-den-broek-epsilon-le-sqrtfrac1nbig2epsilonlogfrac6-m_mathcalh2ndeltabig}}
+
+\hypertarget{code}{%
+\subsubsection{Code:}\label{code}}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{177}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{print\PYZus{}bounds}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+For N=5
+ Original VC Bound=13.828
+ Rademacher Bound=8.148
+ Parrondo Broek Bound =5.101
+ Devroye Bound=5.593
+    \end{Verbatim}
+
+    \hypertarget{problem-4}{%
+\subsection{Problem 4}\label{problem-4}}
+
+\hypertarget{answer-e-none-of-the-above}{%
+\subsubsection{Answer: {[}e{]} None of the
+above}\label{answer-e-none-of-the-above}}
+
+\hypertarget{derivation}{%
+\subsubsection{Derivation:}\label{derivation}}
+
+We want to minimize the mean squared error on the two examples given, in
+formulae:
+
+\[
+E_{in}=\frac{1}{N}\sum^N_{i=1}(a x_i-y_i)^2\,.
+\]
+
+We can find the \(\bar{a}\) that minimizes the error by setting
+\(\frac{d}{da}E_{in}(\bar{a})=0\). For two points, we get:
+
+\[
+\bar{a}=\frac{x_1 y_1 + x_2 y_2}{x_1^2 + x_2^2}\,.
+\]
+
+Notice that the same result is obtained by applying the Linear
+Regression Algorithm (which by definition minimizes the mean squared
+errors). Let \(X\) be the matrix of the data points, i.e.
+
+\[
+X=
+\begin{pmatrix}
+x_1\\
+x_2
+\end{pmatrix}
+\,.
+\]
+
+The single weight \(\bar{a}\) is then found by computing
+\(\bar{a}=X^\dagger y\), where
+
+\[
+X^\dagger=(X^T X)^{-1}X^T=
+\begin{pmatrix}
+\frac{x_1}{x_1^2 + x_2^2}\\
+\frac{x_2}{x_1^2 + x_2^2}
+\end{pmatrix}
+\,
+\]
+
+is the pseudo-inverse matrix of \(X\).
+
+Finally, we want to find the average hypothesis \(\bar{g}(x)\). Given N
+two-point samples, it can be written as:
+
+\[\bar{g}(x)=\frac{1}{N}\sum_{x\in\chi}h(x)=\frac{\sum^N_{i=0}\bar{a}}{N} x=\bar{a}_{avg}x\,.\]
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{422}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k}{def} \PY{n+nf}{a\PYZus{}min}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)}\PY{p}{:}
+    \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)}\PY{o}{/}\PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{x}\PY{p}{)}
+
+\PY{k}{def} \PY{n+nf}{f}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+    \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{m}\PY{o}{.}\PY{n}{pi}\PY{o}{*}\PY{n}{x}\PY{p}{)}
+
+\PY{k}{def} \PY{n+nf}{gen\PYZus{}data}\PY{p}{(}\PY{n}{func}\PY{p}{,}\PY{n}{N}\PY{p}{)}\PY{p}{:}
+    \PY{n}{x}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{uniform}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{N}\PY{p}{)}
+    \PY{k}{return} \PY{n}{x}\PY{p}{,}\PY{n}{func}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+
+\PY{n}{a}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+\PY{n}{Nsamples}\PY{o}{=}\PY{l+m+mi}{10000}
+
+\PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{Nsamples}\PY{p}{)}\PY{p}{:}
+    \PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{n}{gen\PYZus{}data}\PY{p}{(}\PY{n}{f}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
+    \PY{n}{a}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{a\PYZus{}min}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)}\PY{p}{)}
+
+\PY{n}{a\PYZus{}avg}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{a}\PY{p}{)}
+
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{For }\PY{l+s+si}{\PYZob{}Nsamples\PYZcb{}}\PY{l+s+s1}{ samples of two points, a\PYZus{}avg=}\PY{l+s+si}{\PYZob{}a\PYZus{}avg:.2f\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}   
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+For 10000 samples of two points, a\_avg=1.43
+    \end{Verbatim}
+
+    \hypertarget{problem-5}{%
+\subsection{Problem 5}\label{problem-5}}
+
+\hypertarget{answer-b-0.3}{%
+\subsubsection{\texorpdfstring{Answer: {[}b{]}
+\(0.3\)}{Answer: {[}b{]} 0.3}}\label{answer-b-0.3}}
+
+\hypertarget{derivation}{%
+\subsubsection{Derivation:}\label{derivation}}
+
+We want to compute the bias for N sample-points:
+
+\[
+{\rm bias}=\frac{1}{N}\sum_{x\in\chi}{\rm bias}(x)=\frac{1}{N}\sum^N_{i=1}(\bar{g}(x_i)-f(x_i))^2=\frac{1}{N}\sum^N_{i=1}(\bar{a}_{avg}x_i-f(x_i))^2\,.
+\]
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{423}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{bias}\PY{o}{=}\PY{l+m+mi}{0}
+
+\PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{Nsamples}\PY{p}{)}\PY{p}{:}
+    \PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{n}{gen\PYZus{}data}\PY{p}{(}\PY{n}{f}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+    \PY{n}{bias}\PY{o}{+}\PY{o}{=}\PY{p}{(}\PY{n}{a\PYZus{}avg}\PY{o}{*}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{y}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}
+
+\PY{n}{bias}\PY{o}{=}\PY{n}{bias}\PY{o}{/}\PY{n}{Nsamples}
+
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{For }\PY{l+s+si}{\PYZob{}Nsamples\PYZcb{}}\PY{l+s+s1}{ sample\PYZhy{}points, bias=}\PY{l+s+si}{\PYZob{}bias:.2f\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}   
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+For 10000 sample-points, bias=0.27
+    \end{Verbatim}
+
+    \hypertarget{problem-6}{%
+\subsection{Problem 6}\label{problem-6}}
+
+\hypertarget{answer-a-0.2}{%
+\subsubsection{\texorpdfstring{Answer: {[}a{]}
+\(0.2\)}{Answer: {[}a{]} 0.2}}\label{answer-a-0.2}}
+
+\hypertarget{derivation}{%
+\subsubsection{Derivation:}\label{derivation}}
+
+We want to compute the variance for N sample-points:
+
+\[
+{\rm var}=\frac{1}{N}\sum_{x\in\chi}{\rm var}(x)=\frac{1}{N}\sum^N_{i=1}(h(x)-\bar{g}(x))^2=\frac{1}{N}\sum^N_{i=1}((\bar{a}_i-\bar{a}_{avg})x_i)^2\,.
+\]
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{426}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{var}\PY{o}{=}\PY{l+m+mi}{0}
+
+\PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{Nsamples}\PY{p}{)}\PY{p}{:}
+    \PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{n}{gen\PYZus{}data}\PY{p}{(}\PY{n}{f}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+    \PY{n}{var}\PY{o}{+}\PY{o}{=}\PY{p}{(}\PY{n}{a}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{*}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{a\PYZus{}avg}\PY{o}{*}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}
+
+\PY{n}{var}\PY{o}{=}\PY{n}{var}\PY{o}{/}\PY{n}{Nsamples}
+
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{For }\PY{l+s+si}{\PYZob{}Nsamples\PYZcb{}}\PY{l+s+s1}{ sample\PYZhy{}points, bias=}\PY{l+s+si}{\PYZob{}var:.2f\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}   
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+For 10000 sample-points, bias=0.24
+    \end{Verbatim}
+
+    \hypertarget{problem-7}{%
+\subsection{Problem 7}\label{problem-7}}
+
+\hypertarget{answer-b-hxax}{%
+\subsubsection{\texorpdfstring{Answer: {[}b{]}
+\(h(x)=ax\)}{Answer: {[}b{]} h(x)=ax}}\label{answer-b-hxax}}
+
+\hypertarget{derivation}{%
+\subsubsection{Derivation:}\label{derivation}}
+
+The expected value of out-of-sample error \(E_{out}\) in the
+bias-variance analysis can be written as
+
+\[
+E_{out}\sim{\rm bias}+{\rm var}
+\]
+
+For the proposed models, taking the other data from the lecture notes,
+we have:
+
+\begin{itemize}
+\tightlist
+\item
+  {[}a{]} \(h(x)=b\) has
+  \(({\rm bias},{\rm var})=(0.5,0.25)\rightarrow E_{out}\sim 0.75\)
+\item
+  {[}b{]} \(h(x)=ax\) has
+  \(({\rm bias},{\rm var})=(0.3,0.2)\rightarrow E_{out}\sim 0.5\)
+\item
+  {[}c{]} \(h(x)=ax+b\) has
+  \(({\rm bias},{\rm var})=(0.21,1.69)\rightarrow E_{out}\sim 1.9\)
+\end{itemize}
+
+where we excluded the quadratic hypothesis since they are too complex
+for the amount of points provided.
+
+    \hypertarget{problem-8}{%
+\subsection{Problem 8}\label{problem-8}}
+
+\hypertarget{answer-c-q}{%
+\subsubsection{\texorpdfstring{Answer: {[}c{]}
+\(q\)}{Answer: {[}c{]} q}}\label{answer-c-q}}
+
+\hypertarget{derivation}{%
+\subsubsection{Derivation:}\label{derivation}}
+
+When \(N<q\), the recursive relation can be solved exactly with initial
+condition \(m_{\mathcal{H}}(1)=2\), giving
+
+\[
+m_{\mathcal{H}}(N\le q)=2^N\,.
+\]
+
+For \(N=q+1\):
+
+\[
+m_{\mathcal{H}}(q+1)=2*2^{q}-{q\choose q}=2^{q+1}-1\,.
+\]
+
+Hence, \(k=q+1\) is a break point for the hypothesis set
+\(\mathcal{H}\). By definition, the VC dimension of the set is then:
+
+\[
+d_{VC}=k-1=q\,.
+\]
+
+    \hypertarget{problem-9}{%
+\subsection{Problem 9}\label{problem-9}}
+
+\hypertarget{answer-b-0le-d_vccap_k-mathcalh_kle-rm-mind_vcmathcalh_k}{%
+\subsubsection{\texorpdfstring{Answer: {[}b{]}
+\(0\le d_{VC}(\cap_k \mathcal{H}_k)\le {\rm min}\{d_{VC}(\mathcal{H}_k)\}\)}{Answer: {[}b{]} 0\textbackslash{}le d\_\{VC\}(\textbackslash{}cap\_k \textbackslash{}mathcal\{H\}\_k)\textbackslash{}le \{\textbackslash{}rm min\}\textbackslash{}\{d\_\{VC\}(\textbackslash{}mathcal\{H\}\_k)\textbackslash{}\}}}\label{answer-b-0le-d_vccap_k-mathcalh_kle-rm-mind_vcmathcalh_k}}
+
+\hypertarget{derivation}{%
+\subsubsection{Derivation:}\label{derivation}}
+
+Since the intersection can be the empty set (consider disjoint sets),
+and by definition the singleton set has VC dimension 0, the lower bound
+of the intersection has to be 0.
+
+The upper bound should be the minimum VC dimension among all the sets,
+which we call \(d_{min}\). Suppose instead the VC dimension of the
+intersection set is \(d_{min}+1\). This implies that the intersection
+set hypothesis can shatter \(d_{min}+1\) points. Hence, every hypothesis
+in the intersection should be able to shatter \(d_{min}+1\) which
+contradicts the assumption that \(d_{min}\) is the VC dimension of one
+of the sets.
+
+    \hypertarget{problem-10}{%
+\subsection{Problem 10}\label{problem-10}}
+
+\hypertarget{answer-e-rm-maxd_vcmathcalh_kle-d_vccup_k-mathcalh_kle-k-1sum_k-d_vcmathcalh_k}{%
+\subsubsection{\texorpdfstring{Answer: {[}e{]}
+\({\rm max}\{d_{VC}(\mathcal{H}_k)\}\le d_{VC}(\cup_k \mathcal{H}_k)\le K-1+\sum_k d_{VC}(\mathcal{H}_k)\)}{Answer: {[}e{]} \{\textbackslash{}rm max\}\textbackslash{}\{d\_\{VC\}(\textbackslash{}mathcal\{H\}\_k)\textbackslash{}\}\textbackslash{}le d\_\{VC\}(\textbackslash{}cup\_k \textbackslash{}mathcal\{H\}\_k)\textbackslash{}le K-1+\textbackslash{}sum\_k d\_\{VC\}(\textbackslash{}mathcal\{H\}\_k)}}\label{answer-e-rm-maxd_vcmathcalh_kle-d_vccup_k-mathcalh_kle-k-1sum_k-d_vcmathcalh_k}}
+
+\hypertarget{derivation}{%
+\subsubsection{Derivation:}\label{derivation}}
+
+The lower bound of the union set has to be the maximum VC dimension
+among all the sets \(d_{max}\), since we can always shatter \(d_{max}\)
+points with the union set by taking the subset that has \(d_{max}\) as
+its VC dimension.
+
+For the upper bound, we first prove that the union set of two hypothesis
+sets \(\mathcal{H}_1\) and \(\mathcal{H}_2\) with VC dimensions \(d_1\)
+and \(d_2\) respectively can shatter at most \(N-1=d_1+d_2+1\) points.
+First of all, we observe that the growth function of the union set can
+be at most the sum of the two growth functions of the two subsets for
+any \(N\). In particular, for \(N=d_1+d_2+2\) we find:
+
+\[
+m_{\mathcal{H}_1\cup\mathcal{H}_2}(N)\le m_{\mathcal{H}_1}(N)+m_{\mathcal{H}_2}(N) =\sum_{k=0}^{d_{1}}{N\choose k}+\sum_{k=0}^{d_{2}}{N\choose k}=\sum_{k=0}^{d_{1}}{N\choose k}+\sum_{k=0}^{d_{2}}{N\choose N-k}=\sum_{k=0}^{d_{1}}{N\choose k}+\sum_{k=0}^{d_{2}}{N\choose N-k}\\=\sum_{k=0}^{d_{1}}{N\choose k}+\sum_{k=d_1+2}^{d_1+d_{2}+2}{N\choose k}=\sum_{k=0}^{d_1+d_2+2}{N\choose k}-{N\choose d_1+1}=2^N-{N\choose d_1+1}<2^N\,.
+\]
+
+Therefore, if the first relation is an equality, \(N=d_1+d_2+2\) is
+necessarily a break point for the union set and its VC dimension is
+\(d_{VC}(\mathcal{H}_1\cup \mathcal{H}_2)=d_1+d_2+1\). Therefore, we
+proved that
+
+\[
+d_{VC}(\mathcal{H}_1\cup \mathcal{H}_2)\le d_{VC}(\mathcal{H}_1)+d_{VC}(\mathcal{H}_2)+1\,.
+\]
+
+Now, we use induction to prove the upper bound for a generalized union
+of \(K\) hypothesis sets. Let's assume the relation is valid for
+\(K-1\), in formulae:
+
+\[
+d_{VC}(\cup_{k=0}^{K-1} \mathcal{H}_k)\le K-2+\sum_{k=0}^{K-1} d_{VC}(\mathcal{H}_k)\,.
+\]
+
+For \(d_{VC}(\cup_{k=0}^{K} \mathcal{H}_k)\), we can write:
+
+\[
+d_{VC}(\cup_{k=0}^{K} \mathcal{H}_k)= d_{VC}(\cup_{k=0}^{K-1} \mathcal{H}_k \cup \mathcal{H}_K)\le d_{VC}(\cup_{k=0}^{K-1} \mathcal{H}_k)+d_{VC}(\mathcal{H}_K)+1\\ \le K-2+\sum_{k=0}^{K-1} d_{VC}(\mathcal{H}_k)+d_{VC}(\mathcal{H}_K)+1=K-1+\sum_{k=0}^{K} d_{VC}(\mathcal{H}_k)\,.
+\]
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{ }{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+
+\end{Verbatim}
+\end{tcolorbox}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+\end{document}
