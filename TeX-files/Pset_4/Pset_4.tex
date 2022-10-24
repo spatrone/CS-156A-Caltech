@@ -361,33 +361,30 @@
     
     \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
     
-    
+\makeatletter
+\renewcommand{\@seccntformat}[1]{}
+\makeatother  
 
 \begin{document}
-    
+    \title{CS 156a - Problem Set 4}
+    \author{Samuel Patrone, 2140749}
     \maketitle
     
-    
 
-    
-    \hypertarget{cs-156a---problem-set-4}{%
-\section{CS 156a - Problem Set 4}\label{cs-156a---problem-set-4}}
+The following notebook is publicly available at the following
+\href{https://github.com/spatrone/CS156A-Caltech.git}{link}.
 
-\hypertarget{patrone-samuel-2140749}{%
-\subsection{Patrone Samuel, 2140749}\label{patrone-samuel-2140749}}
-
-The following notebook is publicly available at
-https://github.com/spatrone/CS156A-Caltech.git.
+\tableofcontents
 
     \hypertarget{problem-1}{%
-\subsection{Problem 1}\label{problem-1}}
+\section{Problem 1}\label{problem-1}}
 
 \hypertarget{answer-d-460000}{%
-\subsubsection{\texorpdfstring{Answer: {[}d{]}
+\subsection{\texorpdfstring{Answer: {[}d{]}
 \(460,000\)}{Answer: {[}d{]} 460,000}}\label{answer-d-460000}}
 
 \hypertarget{derivation}{%
-\subsubsection{Derivation:}\label{derivation}}
+\subsection{Derivation:}\label{derivation}}
 
 The VC generalization bound states that, with probability at least
 \(1-\delta\):
@@ -448,14 +445,14 @@ sample \(N\) if we want \(\Omega\) to be a specific value
 \end{tcolorbox}
         
     \hypertarget{problem-2}{%
-\subsection{Problem 2}\label{problem-2}}
+\section{Problem 2}\label{problem-2}}
 
 \hypertarget{answer-d-rm-devroye-epsilon-le-sqrtfrac12nbig4epsilon1epsilonlogfrac4-m_mathcalhn2deltabig}{%
-\subsubsection{\texorpdfstring{Answer: {[}d{]}
+\subsection{\texorpdfstring{Answer: {[}d{]}
 \({\rm Devroye}\; \epsilon \le \sqrt{\frac{1}{2N}\big(4\epsilon(1+\epsilon)+\log{\frac{4 m_{\mathcal{H}}(N^2)}{\delta}}\big)}\)}{Answer: {[}d{]} \{\textbackslash{}rm Devroye\}\textbackslash{}; \textbackslash{}epsilon \textbackslash{}le \textbackslash{}sqrt\{\textbackslash{}frac\{1\}\{2N\}\textbackslash{}big(4\textbackslash{}epsilon(1+\textbackslash{}epsilon)+\textbackslash{}log\{\textbackslash{}frac\{4 m\_\{\textbackslash{}mathcal\{H\}\}(N\^{}2)\}\{\textbackslash{}delta\}\}\textbackslash{}big)\}}}\label{answer-d-rm-devroye-epsilon-le-sqrtfrac12nbig4epsilon1epsilonlogfrac4-m_mathcalhn2deltabig}}
 
 \hypertarget{code}{%
-\subsubsection{Code:}\label{code}}
+\subsection{Code:}\label{code}}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{171}{\boxspacing}
@@ -532,14 +529,14 @@ For N=10000
     \end{Verbatim}
 
     \hypertarget{problem-3}{%
-\subsection{Problem 3}\label{problem-3}}
+\section{Problem 3}\label{problem-3}}
 
 \hypertarget{answer-c-rm-parrondoand-van-den-broek-epsilon-le-sqrtfrac1nbig2epsilonlogfrac6-m_mathcalh2ndeltabig}{%
-\subsubsection{\texorpdfstring{Answer: {[}c{]}
+\subsection{\texorpdfstring{Answer: {[}c{]}
 \({\rm Parrondo\,and \, Van\, den \,Broek:}\; \epsilon \le \sqrt{\frac{1}{N}\big(2\epsilon+\log{\frac{6 m_{\mathcal{H}}(2N)}{\delta}}\big)}\)}{Answer: {[}c{]} \{\textbackslash{}rm Parrondo\textbackslash{},and \textbackslash{}, Van\textbackslash{}, den \textbackslash{},Broek:\}\textbackslash{}; \textbackslash{}epsilon \textbackslash{}le \textbackslash{}sqrt\{\textbackslash{}frac\{1\}\{N\}\textbackslash{}big(2\textbackslash{}epsilon+\textbackslash{}log\{\textbackslash{}frac\{6 m\_\{\textbackslash{}mathcal\{H\}\}(2N)\}\{\textbackslash{}delta\}\}\textbackslash{}big)\}}}\label{answer-c-rm-parrondoand-van-den-broek-epsilon-le-sqrtfrac1nbig2epsilonlogfrac6-m_mathcalh2ndeltabig}}
 
 \hypertarget{code}{%
-\subsubsection{Code:}\label{code}}
+\subsection{Code:}\label{code}}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{177}{\boxspacing}
@@ -557,14 +554,14 @@ For N=5
     \end{Verbatim}
 
     \hypertarget{problem-4}{%
-\subsection{Problem 4}\label{problem-4}}
+\section{Problem 4}\label{problem-4}}
 
 \hypertarget{answer-e-none-of-the-above}{%
-\subsubsection{Answer: {[}e{]} None of the
+\subsection{Answer: {[}e{]} None of the
 above}\label{answer-e-none-of-the-above}}
 
 \hypertarget{derivation}{%
-\subsubsection{Derivation:}\label{derivation}}
+\subsection{Derivation:}\label{derivation}}
 
 We want to minimize the mean squared error on the two examples given, in
 formulae:
@@ -643,14 +640,14 @@ For 10000 samples of two points, a\_avg=1.43
     \end{Verbatim}
 
     \hypertarget{problem-5}{%
-\subsection{Problem 5}\label{problem-5}}
+\section{Problem 5}\label{problem-5}}
 
 \hypertarget{answer-b-0.3}{%
-\subsubsection{\texorpdfstring{Answer: {[}b{]}
+\subsection{\texorpdfstring{Answer: {[}b{]}
 \(0.3\)}{Answer: {[}b{]} 0.3}}\label{answer-b-0.3}}
 
 \hypertarget{derivation}{%
-\subsubsection{Derivation:}\label{derivation}}
+\subsection{Derivation:}\label{derivation}}
 
 We want to compute the bias for N sample-points:
 
@@ -678,14 +675,14 @@ For 10000 sample-points, bias=0.27
     \end{Verbatim}
 
     \hypertarget{problem-6}{%
-\subsection{Problem 6}\label{problem-6}}
+\section{Problem 6}\label{problem-6}}
 
 \hypertarget{answer-a-0.2}{%
-\subsubsection{\texorpdfstring{Answer: {[}a{]}
+\subsection{\texorpdfstring{Answer: {[}a{]}
 \(0.2\)}{Answer: {[}a{]} 0.2}}\label{answer-a-0.2}}
 
 \hypertarget{derivation}{%
-\subsubsection{Derivation:}\label{derivation}}
+\subsection{Derivation:}\label{derivation}}
 
 We want to compute the variance for N sample-points:
 
@@ -713,14 +710,14 @@ For 10000 sample-points, bias=0.24
     \end{Verbatim}
 
     \hypertarget{problem-7}{%
-\subsection{Problem 7}\label{problem-7}}
+\section{Problem 7}\label{problem-7}}
 
 \hypertarget{answer-b-hxax}{%
-\subsubsection{\texorpdfstring{Answer: {[}b{]}
+\subsection{\texorpdfstring{Answer: {[}b{]}
 \(h(x)=ax\)}{Answer: {[}b{]} h(x)=ax}}\label{answer-b-hxax}}
 
 \hypertarget{derivation}{%
-\subsubsection{Derivation:}\label{derivation}}
+\subsection{Derivation:}\label{derivation}}
 
 The expected value of out-of-sample error \(E_{out}\) in the
 bias-variance analysis can be written as
@@ -749,14 +746,14 @@ where we excluded the quadratic hypothesis since they are too complex
 for the amount of points provided.
 
     \hypertarget{problem-8}{%
-\subsection{Problem 8}\label{problem-8}}
+\section{Problem 8}\label{problem-8}}
 
 \hypertarget{answer-c-q}{%
-\subsubsection{\texorpdfstring{Answer: {[}c{]}
+\subsection{\texorpdfstring{Answer: {[}c{]}
 \(q\)}{Answer: {[}c{]} q}}\label{answer-c-q}}
 
 \hypertarget{derivation}{%
-\subsubsection{Derivation:}\label{derivation}}
+\subsection{Derivation:}\label{derivation}}
 
 When \(N<q\), the recursive relation can be solved exactly with initial
 condition \(m_{\mathcal{H}}(1)=2\), giving
@@ -779,14 +776,14 @@ d_{VC}=k-1=q\,.
 \]
 
     \hypertarget{problem-9}{%
-\subsection{Problem 9}\label{problem-9}}
+\section{Problem 9}\label{problem-9}}
 
 \hypertarget{answer-b-0le-d_vccap_k-mathcalh_kle-rm-mind_vcmathcalh_k}{%
-\subsubsection{\texorpdfstring{Answer: {[}b{]}
+\subsection{\texorpdfstring{Answer: {[}b{]}
 \(0\le d_{VC}(\cap_k \mathcal{H}_k)\le {\rm min}\{d_{VC}(\mathcal{H}_k)\}\)}{Answer: {[}b{]} 0\textbackslash{}le d\_\{VC\}(\textbackslash{}cap\_k \textbackslash{}mathcal\{H\}\_k)\textbackslash{}le \{\textbackslash{}rm min\}\textbackslash{}\{d\_\{VC\}(\textbackslash{}mathcal\{H\}\_k)\textbackslash{}\}}}\label{answer-b-0le-d_vccap_k-mathcalh_kle-rm-mind_vcmathcalh_k}}
 
 \hypertarget{derivation}{%
-\subsubsection{Derivation:}\label{derivation}}
+\subsection{Derivation:}\label{derivation}}
 
 Since the intersection can be the empty set (consider disjoint sets),
 and by definition the singleton set has VC dimension 0, the lower bound
@@ -801,14 +798,14 @@ contradicts the assumption that \(d_{min}\) is the VC dimension of one
 of the sets.
 
     \hypertarget{problem-10}{%
-\subsection{Problem 10}\label{problem-10}}
+\section{Problem 10}\label{problem-10}}
 
 \hypertarget{answer-e-rm-maxd_vcmathcalh_kle-d_vccup_k-mathcalh_kle-k-1sum_k-d_vcmathcalh_k}{%
-\subsubsection{\texorpdfstring{Answer: {[}e{]}
+\subsection{\texorpdfstring{Answer: {[}e{]}
 \({\rm max}\{d_{VC}(\mathcal{H}_k)\}\le d_{VC}(\cup_k \mathcal{H}_k)\le K-1+\sum_k d_{VC}(\mathcal{H}_k)\)}{Answer: {[}e{]} \{\textbackslash{}rm max\}\textbackslash{}\{d\_\{VC\}(\textbackslash{}mathcal\{H\}\_k)\textbackslash{}\}\textbackslash{}le d\_\{VC\}(\textbackslash{}cup\_k \textbackslash{}mathcal\{H\}\_k)\textbackslash{}le K-1+\textbackslash{}sum\_k d\_\{VC\}(\textbackslash{}mathcal\{H\}\_k)}}\label{answer-e-rm-maxd_vcmathcalh_kle-d_vccup_k-mathcalh_kle-k-1sum_k-d_vcmathcalh_k}}
 
 \hypertarget{derivation}{%
-\subsubsection{Derivation:}\label{derivation}}
+\subsection{Derivation:}\label{derivation}}
 
 The lower bound of the union set has to be the maximum VC dimension
 among all the sets \(d_{max}\), since we can always shatter \(d_{max}\)
@@ -822,9 +819,11 @@ First of all, we observe that the growth function of the union set can
 be at most the sum of the two growth functions of the two subsets for
 any \(N\). In particular, for \(N=d_1+d_2+2\) we find:
 
-\[
-m_{\mathcal{H}_1\cup\mathcal{H}_2}(N)\le m_{\mathcal{H}_1}(N)+m_{\mathcal{H}_2}(N) =\sum_{k=0}^{d_{1}}{N\choose k}+\sum_{k=0}^{d_{2}}{N\choose k}=\sum_{k=0}^{d_{1}}{N\choose k}+\sum_{k=0}^{d_{2}}{N\choose N-k}=\sum_{k=0}^{d_{1}}{N\choose k}+\sum_{k=0}^{d_{2}}{N\choose N-k}\\=\sum_{k=0}^{d_{1}}{N\choose k}+\sum_{k=d_1+2}^{d_1+d_{2}+2}{N\choose k}=\sum_{k=0}^{d_1+d_2+2}{N\choose k}-{N\choose d_1+1}=2^N-{N\choose d_1+1}<2^N\,.
-\]
+\begin{equation}
+\begin{split}
+m_{\mathcal{H}_1\cup\mathcal{H}_2}(N)&\le m_{\mathcal{H}_1}(N)+m_{\mathcal{H}_2}(N) \\&=\sum_{k=0}^{d_{1}}{N\choose k}+\sum_{k=0}^{d_{2}}{N\choose k}=\sum_{k=0}^{d_{1}}{N\choose k}+\sum_{k=0}^{d_{2}}{N\choose N-k}=\sum_{k=0}^{d_{1}}{N\choose k}+\sum_{k=0}^{d_{2}}{N\choose N-k}\\&=\sum_{k=0}^{d_{1}}{N\choose k}+\sum_{k=d_1+2}^{d_1+d_{2}+2}{N\choose k}=\sum_{k=0}^{d_1+d_2+2}{N\choose k}-{N\choose d_1+1}=2^N-{N\choose d_1+1}<2^N\,.
+\end{split}
+\end{equation}
 
 Therefore, if the first relation is an equality, \(N=d_1+d_2+2\) is
 necessarily a break point for the union set and its VC dimension is
@@ -845,9 +844,11 @@ d_{VC}(\cup_{k=0}^{K-1} \mathcal{H}_k)\le K-2+\sum_{k=0}^{K-1} d_{VC}(\mathcal{H
 
 For \(d_{VC}(\cup_{k=0}^{K} \mathcal{H}_k)\), we can write:
 
-\[
+\begin{equation}
+\begin{split}
 d_{VC}(\cup_{k=0}^{K} \mathcal{H}_k)= d_{VC}(\cup_{k=0}^{K-1} \mathcal{H}_k \cup \mathcal{H}_K)\le d_{VC}(\cup_{k=0}^{K-1} \mathcal{H}_k)+d_{VC}(\mathcal{H}_K)+1\\ \le K-2+\sum_{k=0}^{K-1} d_{VC}(\mathcal{H}_k)+d_{VC}(\mathcal{H}_K)+1=K-1+\sum_{k=0}^{K} d_{VC}(\mathcal{H}_k)\,.
-\]
+\end{split}
+\end{equation}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{ }{\boxspacing}
