@@ -361,33 +361,30 @@
     
     \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
     
-    
+\makeatletter
+\renewcommand{\@seccntformat}[1]{}
+\makeatother  
 
 \begin{document}
-    
+    \title{CS 156a - Problem Set 5}
+    \author{Samuel Patrone, 2140749}
     \maketitle
     
-    
 
-    
-    \hypertarget{cs-156a---problem-set-5}{%
-\section{CS 156a - Problem Set 5}\label{cs-156a---problem-set-5}}
+The following notebook is publicly available at the following
+\href{https://github.com/spatrone/CS156A-Caltech.git}{link}.
 
-\hypertarget{patrone-samuel-2140749}{%
-\subsection{Patrone Samuel, 2140749}\label{patrone-samuel-2140749}}
-
-The following notebook is publicly available at
-https://github.com/spatrone/CS156A-Caltech.git.
+\tableofcontents
 
     \hypertarget{problem-1}{%
-\subsection{Problem 1}\label{problem-1}}
+\section{Problem 1}\label{problem-1}}
 
 \hypertarget{answer-c-100}{%
-\subsubsection{\texorpdfstring{Answer: {[}c{]}
+\subsection{\texorpdfstring{Answer: {[}c{]}
 \(100\)}{Answer: {[}c{]} 100}}\label{answer-c-100}}
 
 \hypertarget{derivation}{%
-\subsubsection{Derivation:}\label{derivation}}
+\subsection{Derivation:}\label{derivation}}
 
 The expected value on a data set \(\mathcal{D}\) of \(N\) samples of
 in-sample error for a noisy target function with variance \(\sigma^2\)
@@ -419,15 +416,15 @@ For N=45, we get an expected value for E\_min of 0.008
     \end{Verbatim}
 
     \hypertarget{problem-2}{%
-\subsection{Problem 2}\label{problem-2}}
+\section{Problem 2}\label{problem-2}}
 
 \hypertarget{answer-d-_10-_20}{%
-\subsubsection{\texorpdfstring{Answer: {[}d{]} \$
-\tilde{\omega}\_1\textless{}0,; \tilde{\omega}\_2\textgreater{}0
-\$}{Answer: {[}d{]} \$ \_1\textless{}0,; \_2\textgreater{}0 \$}}\label{answer-d-_10-_20}}
+\subsection{\texorpdfstring{Answer: {[}d{]} $
+\tilde{\omega}_1\textless{}0,; \tilde{\omega}_2\textgreater{}0
+$}{Answer: {[}d{]} \$ \_1\textless{}0,; \_2\textgreater{}0 \$}}\label{answer-d-_10-_20}}
 
 \hypertarget{derivation}{%
-\subsubsection{Derivation:}\label{derivation}}
+\subsection{Derivation:}\label{derivation}}
 
 A hyperbola is the set of points in a plane whose distances from two
 fixed points, called foci, has an absolute difference that is equal to a
@@ -497,19 +494,19 @@ we impose the following sets of constraints on the weights
 \end{tcolorbox}
 
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_0.png}
+    \adjustimage{max size={0.5\linewidth}{0.5\paperheight}}{output_4_0.png}
     \end{center}
     { \hspace*{\fill} \\}
     
     \hypertarget{problem-3}{%
-\subsection{Problem 3}\label{problem-3}}
+\section{Problem 3}\label{problem-3}}
 
 \hypertarget{answer-c-15}{%
-\subsubsection{\texorpdfstring{Answer: {[}c{]}
+\subsection{\texorpdfstring{Answer: {[}c{]}
 \(15\)}{Answer: {[}c{]} 15}}\label{answer-c-15}}
 
 \hypertarget{derivation}{%
-\subsubsection{Derivation:}\label{derivation}}
+\subsection{Derivation:}\label{derivation}}
 
 Let's consider the general \(\mathcal{Q}\)th order polynomial transform
 \(\Phi_\mathcal{Q}\) for the space \(\mathcal{x}=\mathbb{R}^d\). We can
@@ -547,14 +544,14 @@ For the case examined here, \(Q=4\), hence
 \(d_{VC}(\mathcal{H}_{\Phi})\le \tilde{d}(4,2)+1=15\).
 
     \hypertarget{problem-4}{%
-\subsection{Problem 4}\label{problem-4}}
+\section{Problem 4}\label{problem-4}}
 
 \hypertarget{answer-e-2uev-2ve-uev2ve-u}{%
-\subsubsection{\texorpdfstring{Answer: {[}e{]}
+\subsection{\texorpdfstring{Answer: {[}e{]}
 \(2(ue^v-2ve^{-u})(e^v+2ve^{-u})\)}{Answer: {[}e{]} 2(ue\^{}v-2ve\^{}\{-u\})(e\^{}v+2ve\^{}\{-u\})}}\label{answer-e-2uev-2ve-uev2ve-u}}
 
 \hypertarget{derivation}{%
-\subsubsection{Derivation:}\label{derivation}}
+\subsection{Derivation:}\label{derivation}}
 
 \begin{align}
 \begin{split}
@@ -563,14 +560,14 @@ For the case examined here, \(Q=4\), hence
 \end{align}
 
     \hypertarget{problems-5-6}{%
-\subsection{Problems 5-6}\label{problems-5-6}}
+\section{Problems 5-6}\label{problems-5-6}}
 
 \hypertarget{answers-d-10-e-0.0450.024}{%
-\subsubsection{\texorpdfstring{Answers: {[}d{]} \(10\) , {[}e{]}
+\subsection{\texorpdfstring{Answers: {[}d{]} \(10\) , {[}e{]}
 \([0.045,0.024]\)}{Answers: {[}d{]} 10 , {[}e{]} {[}0.045,0.024{]}}}\label{answers-d-10-e-0.0450.024}}
 
 \hypertarget{code}{%
-\subsubsection{Code:}\label{code}}
+\subsection{Code:}\label{code}}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{65}{\boxspacing}
@@ -614,14 +611,14 @@ error value of 1.21e-15
     \end{Verbatim}
 
     \hypertarget{problem-7}{%
-\subsection{Problem 7}\label{problem-7}}
+\section{Problem 7}\label{problem-7}}
 
 \hypertarget{answer-a-10-1}{%
-\subsubsection{\texorpdfstring{Answer: {[}a{]}
+\subsection{\texorpdfstring{Answer: {[}a{]}
 \(10^{-1}\)}{Answer: {[}a{]} 10\^{}\{-1\}}}\label{answer-a-10-1}}
 
 \hypertarget{code}{%
-\subsubsection{Code:}\label{code}}
+\subsection{Code:}\label{code}}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{74}{\boxspacing}
@@ -652,14 +649,14 @@ error value of 1.40e-01
     \end{Verbatim}
 
     \hypertarget{problems-8-9}{%
-\subsection{Problems 8-9}\label{problems-8-9}}
+\section{Problems 8-9}\label{problems-8-9}}
 
 \hypertarget{answers-d-0.100-a-350}{%
-\subsubsection{\texorpdfstring{Answers: {[}d{]} \(0.100\), {[}a{]}
+\subsection{\texorpdfstring{Answers: {[}d{]} \(0.100\), {[}a{]}
 \(350\)}{Answers: {[}d{]} 0.100, {[}a{]} 350}}\label{answers-d-0.100-a-350}}
 
 \hypertarget{code}{%
-\subsubsection{Code:}\label{code}}
+\subsection{Code:}\label{code}}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{59}{\boxspacing}
@@ -791,19 +788,19 @@ learning rate of 0.01, we get the following average results:
 \end{tcolorbox}
 
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_0.png}
+    \adjustimage{max size={0.5\linewidth}{0.5\paperheight}}{output_14_0.png}
     \end{center}
     { \hspace*{\fill} \\}
     
     \hypertarget{problem-10}{%
-\subsection{Problem 10}\label{problem-10}}
+\section{Problem 10}\label{problem-10}}
 
 \hypertarget{answers-e-e_nmathbfw-rm-min0y_nmathbfwtmathbfx_n}{%
-\subsubsection{\texorpdfstring{Answers: {[}e{]}
+\subsection{\texorpdfstring{Answers: {[}e{]}
 \(e_n(\mathbf{w})=-{\rm min}(0,y_n\mathbf{w}^T\mathbf{x}_n)\)}{Answers: {[}e{]} e\_n(\textbackslash{}mathbf\{w\})=-\{\textbackslash{}rm min\}(0,y\_n\textbackslash{}mathbf\{w\}\^{}T\textbackslash{}mathbf\{x\}\_n)}}\label{answers-e-e_nmathbfw-rm-min0y_nmathbfwtmathbfx_n}}
 
 \hypertarget{derivation}{%
-\subsubsection{Derivation:}\label{derivation}}
+\subsection{Derivation:}\label{derivation}}
 
 In Stochastic Gradient Descent (SGD) method, the weights are updated by
 picking one random point of the sample and computing the gradient of the
