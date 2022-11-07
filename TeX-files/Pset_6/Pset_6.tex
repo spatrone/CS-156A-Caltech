@@ -361,33 +361,30 @@
     
     \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
     
-    
+\makeatletter
+\renewcommand{\@seccntformat}[1]{}
+\makeatother  
 
 \begin{document}
-    
+    \title{CS 156a - Problem Set 6}
+    \author{Samuel Patrone, 2140749}
     \maketitle
     
-    
 
-    
-    \hypertarget{cs-156a---problem-set-6}{%
-\section{CS 156a - Problem Set 6}\label{cs-156a---problem-set-6}}
+The following notebook is publicly available at the following
+\href{https://github.com/spatrone/CS156A-Caltech.git}{link}.
 
-\hypertarget{patrone-samuel-2140749}{%
-\subsection{Patrone Samuel, 2140749}\label{patrone-samuel-2140749}}
-
-The following notebook is publicly available at
-https://github.com/spatrone/CS156A-Caltech.git.
+\tableofcontents
 
     \hypertarget{problem-1}{%
-\subsection{Problem 1}\label{problem-1}}
+\section{Problem 1}\label{problem-1}}
 
 \hypertarget{answer-b-in-general-deterministic-noise-will-increase.}{%
-\subsubsection{Answer: {[}b{]} In general, deterministic noise will
+\subsection{Answer: {[}b{]} In general, deterministic noise will
 increase.}\label{answer-b-in-general-deterministic-noise-will-increase.}}
 
 \hypertarget{derivation}{%
-\subsubsection{Derivation:}\label{derivation}}
+\subsection{Derivation:}\label{derivation}}
 
 Given that we are using a less complex hypothesis in
 \(\mathcal{H}^\prime\subset\mathcal{H}\), we expect the best fit
@@ -401,14 +398,14 @@ for \(N\to\infty\) (in the case of zero stochastic noise) which is lower
 for more complex hypothesis.
 
     \hypertarget{problem-2}{%
-\subsection{Problem 2}\label{problem-2}}
+\section{Problem 2}\label{problem-2}}
 
 \hypertarget{answer-a-0.030.08}{%
-\subsubsection{\texorpdfstring{Answer: {[}a{]}
+\subsection{\texorpdfstring{Answer: {[}a{]}
 \(0.03,\,0.08\)}{Answer: {[}a{]} 0.03,\textbackslash{},0.08}}\label{answer-a-0.030.08}}
 
 \hypertarget{code}{%
-\subsubsection{Code:}\label{code}}
+\subsection{Code:}\label{code}}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{72}{\boxspacing}
@@ -502,15 +499,15 @@ Eout=0.08
     \end{Verbatim}
 
     \hypertarget{problems-3-6}{%
-\subsection{Problems 3-6}\label{problems-3-6}}
+\section{Problems 3-6}\label{problems-3-6}}
 
 \hypertarget{answers-d-0.030.08-e-0.40.4-d--1-b-0.06}{%
-\subsubsection{\texorpdfstring{Answers: {[}d{]} \([0.03,\,0.08]\),
+\subsection{\texorpdfstring{Answers: {[}d{]} \([0.03,\,0.08]\),
 {[}e{]} \([0.4,\,0.4]\), {[}d{]} \(-1\), {[}b{]}
 \(0.06\)}{Answers: {[}d{]} {[}0.03,\textbackslash{},0.08{]}, {[}e{]} {[}0.4,\textbackslash{},0.4{]}, {[}d{]} -1, {[}b{]} 0.06}}\label{answers-d-0.030.08-e-0.40.4-d--1-b-0.06}}
 
 \hypertarget{code}{%
-\subsubsection{Code:}\label{code}}
+\subsection{Code:}\label{code}}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{121}{\boxspacing}
@@ -583,11 +580,11 @@ Eout=0.08
 \section{Problem 7}\label{problem-7}}
 
 \hypertarget{answer-c-mathcalh1003cap-mathcalh1004mathcalh_2}{%
-\subsubsection{\texorpdfstring{Answer: {[}c{]}
+\subsection{\texorpdfstring{Answer: {[}c{]}
 \(\mathcal{H}(10,0,3)\cap \mathcal{H}(10,0,4)=\mathcal{H}_2\)}{Answer: {[}c{]} \textbackslash{}mathcal\{H\}(10,0,3)\textbackslash{}cap \textbackslash{}mathcal\{H\}(10,0,4)=\textbackslash{}mathcal\{H\}\_2}}\label{answer-c-mathcalh1003cap-mathcalh1004mathcalh_2}}
 
 \hypertarget{derivation}{%
-\subsubsection{Derivation:}\label{derivation}}
+\subsection{Derivation:}\label{derivation}}
 
 We first observe that the following identity holds:
 
@@ -611,11 +608,11 @@ Therefore, \begin{equation}
 \section{Problem 8}\label{problem-8}}
 
 \hypertarget{answer-d-45}{%
-\subsubsection{\texorpdfstring{Answer: {[}d{]}
+\subsection{\texorpdfstring{Answer: {[}d{]}
 \(45\)}{Answer: {[}d{]} 45}}\label{answer-d-45}}
 
 \hypertarget{derivation}{%
-\subsubsection{Derivation:}\label{derivation}}
+\subsection{Derivation:}\label{derivation}}
 
 One single iteration of the backpropagation algorithm using one data
 point starts with the forward propagation, i.e.~the computation of the
@@ -683,11 +680,11 @@ Hence, \(N_w=22\), \(N_b=3\) and \(N_{tot}=47\).
 \section{Problem 9}\label{problem-9}}
 
 \hypertarget{answer-a-46}{%
-\subsubsection{\texorpdfstring{Answer: {[}a{]}
+\subsection{\texorpdfstring{Answer: {[}a{]}
 \(46\)}{Answer: {[}a{]} 46}}\label{answer-a-46}}
 
 \hypertarget{derivation}{%
-\subsubsection{Derivation:}\label{derivation}}
+\subsection{Derivation:}\label{derivation}}
 
 To minimize the number of weights, we want to reduce the number of
 connections. In order to achieve that, we consider the case in which the
@@ -721,11 +718,11 @@ case, which turns out to be 46.
 \section{Problem 10}\label{problem-10}}
 
 \hypertarget{answer-e-510}{%
-\subsubsection{\texorpdfstring{Answer: {[}e{]}
+\subsection{\texorpdfstring{Answer: {[}e{]}
 \(510\)}{Answer: {[}e{]} 510}}\label{answer-e-510}}
 
 \hypertarget{derivation}{%
-\subsubsection{Derivation:}\label{derivation}}
+\subsection{Derivation:}\label{derivation}}
 
 To solve this problem, we will analytically compute the number of
 weights for all the possible configurations of one, two or three hidden
