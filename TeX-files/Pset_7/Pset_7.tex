@@ -361,26 +361,23 @@
     
     \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
     
-    
+\makeatletter
+\renewcommand{\@seccntformat}[1]{}
+\makeatother  
 
 \begin{document}
-    
+    \title{CS 156a - Problem Set 7}
+    \author{Samuel Patrone, 2140749}
     \maketitle
     
-    
 
-    
-    \hypertarget{cs-156a---problem-set-7}{%
-\section{CS 156a - Problem Set 7}\label{cs-156a---problem-set-7}}
+The following notebook is publicly available
+\href{https://github.com/spatrone/CS156A-Caltech.git}{here}.
 
-\hypertarget{patrone-samuel-2140749}{%
-\subsection{Patrone Samuel, 2140749}\label{patrone-samuel-2140749}}
-
-The following notebook is publicly available at
-https://github.com/spatrone/CS156A-Caltech.git.
+\tableofcontents
 
     \hypertarget{problems-1-5}{%
-\subsection{Problems 1-5}\label{problems-1-5}}
+\section{Problems 1-5}\label{problems-1-5}}
 
 \hypertarget{answers-d-k6-e-k7-d-k6-d-k6-b-0.10.2}{%
 \subsubsection{\texorpdfstring{Answers: {[}d{]} \(k=6\), {[}e{]}
@@ -603,10 +600,10 @@ Solving for \(\rho\) the equation \(E_0=E_1\), we find
     \hypertarget{problems-8-10}{%
 \subsection{Problems 8-10}\label{problems-8-10}}
 
-\hypertarget{answers-c-60-d-70-b-3}{%
+\hypertarget{answers-c-60-d-65-b-3}{%
 \subsubsection{\texorpdfstring{Answers: {[}c{]} \(60 \%\), {[}d{]}
-\(70 \%\), {[}b{]}
-\(3\)}{Answers: {[}c{]} 60 \textbackslash{}\%, {[}d{]} 70 \textbackslash{}\%, {[}b{]} 3}}\label{answers-c-60-d-70-b-3}}
+\(65 \%\), {[}b{]}
+\(3\)}{Answers: {[}c{]} 60 \textbackslash{}\%, {[}d{]} 65 \textbackslash{}\%, {[}b{]} 3}}\label{answers-c-60-d-70-b-3}}
 
 \hypertarget{code}{%
 \subsubsection{Code:}\label{code}}
@@ -755,13 +752,6 @@ With Npts=100, averaged over Nruns=1000, SVM performs better than PLA 61\% of th
 times!
 The average number of support vectors is 3
     \end{Verbatim}
-
-    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{ }{\boxspacing}
-\begin{Verbatim}[commandchars=\\\{\}]
-
-\end{Verbatim}
-\end{tcolorbox}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{ }{\boxspacing}
