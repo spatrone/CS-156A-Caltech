@@ -361,36 +361,33 @@
     
     \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
     
-    
+\makeatletter
+\renewcommand{\@seccntformat}[1]{}
+\makeatother  
 
 \begin{document}
-    
+    \title{CS 156a - Final Exam}
+    \author{Samuel Patrone, 2140749}
     \maketitle
     
-    
 
-    
-    \hypertarget{cs-156a---final-exam}{%
-\section{CS 156a - Final Exam}\label{cs-156a---final-exam}}
+The following notebook is publicly available
+\href{https://github.com/spatrone/CS156A-Caltech.git}{here}.
 
-\hypertarget{patrone-samuel-2140749}{%
-\subsection{Patrone Samuel, 2140749}\label{patrone-samuel-2140749}}
-
-The following notebook is publicly available at
-https://github.com/spatrone/CS156A-Caltech.git.
+\tableofcontents
 
     \hypertarget{non-linear-transform}{%
-\section{Non-linear Transform}\label{non-linear-transform}}
+\part{Non-linear Transform}\label{non-linear-transform}}
 
 \hypertarget{problem-1}{%
-\subsection{Problem 1}\label{problem-1}}
+\section{Problem 1}\label{problem-1}}
 
 \hypertarget{answer-e-none-of-the-above.}{%
-\subsubsection{Answer: {[}e{]} None of the
+\subsection{Answer: {[}e{]} None of the
 above.}\label{answer-e-none-of-the-above.}}
 
 \hypertarget{derivation}{%
-\subsubsection{Derivation:}\label{derivation}}
+\subsection{Derivation:}\label{derivation}}
 
 Let's consider the general \(\mathcal{Q}\)th order polynomial transform
 \(\Phi_\mathcal{Q}\) for the space \(\mathcal{x}=\mathbb{R}^d\). We can
@@ -417,18 +414,18 @@ For \(d=2\) and \(Q=10\), we get
 \end{equation}
 
     \hypertarget{bias-and-variance}{%
-\section{Bias and Variance}\label{bias-and-variance}}
+\part{Bias and Variance}\label{bias-and-variance}}
 
 \hypertarget{problem-2}{%
-\subsection{Problem 2}\label{problem-2}}
+\section{Problem 2}\label{problem-2}}
 
 \hypertarget{answer-d-mathcalh-is-the-logistic-regression-model.}{%
-\subsubsection{\texorpdfstring{Answer: {[}d{]} \(\mathcal{H}\) is the
+\subsection{\texorpdfstring{Answer: {[}d{]} \(\mathcal{H}\) is the
 logistic regression
 model.}{Answer: {[}d{]} \textbackslash{}mathcal\{H\} is the logistic regression model.}}\label{answer-d-mathcalh-is-the-logistic-regression-model.}}
 
 \hypertarget{derivation}{%
-\subsubsection{Derivation:}\label{derivation}}
+\subsection{Derivation:}\label{derivation}}
 
 By definition of average hypothesis,
 
@@ -446,18 +443,18 @@ combinations are not generally sigmoids or hyperbolic tangents
 respectively.
 
     \hypertarget{overfitting}{%
-\section{Overfitting}\label{overfitting}}
+\part{Overfitting}\label{overfitting}}
 
 \hypertarget{problem-3}{%
-\subsection{Problem 3}\label{problem-3}}
+\section{Problem 3}\label{problem-3}}
 
 \hypertarget{answer-d-we-can-always-determine-if-there-is-overfitting-by-comparing-the-values-of-e_out-e_in.}{%
-\subsubsection{\texorpdfstring{Answer: {[}d{]} We can always determine
+\subsection{\texorpdfstring{Answer: {[}d{]} We can always determine
 if there is overfitting by comparing the values of
 \((E_{out}-E_{in})\).}{Answer: {[}d{]} We can always determine if there is overfitting by comparing the values of (E\_\{out\}-E\_\{in\}).}}\label{answer-d-we-can-always-determine-if-there-is-overfitting-by-comparing-the-values-of-e_out-e_in.}}
 
 \hypertarget{derivation}{%
-\subsubsection{Derivation:}\label{derivation}}
+\subsection{Derivation:}\label{derivation}}
 
 Overfitting is, by definition, the case in which, between two
 hypothesis, the one with lower \(E_{in}\) is preferred, and it results
@@ -473,15 +470,15 @@ example, the difference between the two hypothesis in the values of
 higher \(E_{out}\)) or stochastic properties of the test set.
 
     \hypertarget{problem-4}{%
-\subsection{Problem 4}\label{problem-4}}
+\section{Problem 4}\label{problem-4}}
 
 \hypertarget{answer-d-stochastic-noise-does-not-depend-on-the-hypothesis-set.}{%
-\subsubsection{Answer: {[}d{]} Stochastic noise does not depend on the
+\subsection{Answer: {[}d{]} Stochastic noise does not depend on the
 hypothesis
 set.}\label{answer-d-stochastic-noise-does-not-depend-on-the-hypothesis-set.}}
 
 \hypertarget{derivation}{%
-\subsubsection{Derivation:}\label{derivation}}
+\subsection{Derivation:}\label{derivation}}
 
 Stochastic noise is a property of the data we are given with respect to
 the target function and it is independent on the hypothesis set chosen.
@@ -491,17 +488,17 @@ hypothesis set chosen: an higher complexity of the hypothesis may reduce
 most common case of overfitting.
 
     \hypertarget{regularization}{%
-\section{Regularization}\label{regularization}}
+\part{Regularization}\label{regularization}}
 
 \hypertarget{problem-5}{%
-\subsection{Problem 5}\label{problem-5}}
+\section{Problem 5}\label{problem-5}}
 
 \hypertarget{answer-a-mathbfw_regmathbfw_lin}{%
-\subsubsection{\texorpdfstring{Answer: {[}a{]}
+\subsection{\texorpdfstring{Answer: {[}a{]}
 \(\mathbf{w}_{reg}=\mathbf{w}_{lin}\)}{Answer: {[}a{]} \textbackslash{}mathbf\{w\}\_\{reg\}=\textbackslash{}mathbf\{w\}\_\{lin\}}}\label{answer-a-mathbfw_regmathbfw_lin}}
 
 \hypertarget{derivation}{%
-\subsubsection{Derivation:}\label{derivation}}
+\subsection{Derivation:}\label{derivation}}
 
 If \(\mathbf{w}_{lin}\) already satisfies the constrain
 \(\mathbf{w}_{lin}^T\Gamma^T\Gamma\mathbf{w}_{lin}\le C\), the Tikhonov
@@ -529,14 +526,14 @@ that \(\mathbf{w}_{lin}\in\mathcal{H}(C)\).
 Therefore,\(\mathbf{w}_{reg}=\mathbf{w}_{lin}\).
 
     \hypertarget{problem-6}{%
-\subsection{Problem 6}\label{problem-6}}
+\section{Problem 6}\label{problem-6}}
 
 \hypertarget{answer-b-translated-into-augmented-error}{%
-\subsubsection{Answer: {[}b{]} Translated into augmented
+\subsection{Answer: {[}b{]} Translated into augmented
 error}\label{answer-b-translated-into-augmented-error}}
 
 \hypertarget{derivation}{%
-\subsubsection{Derivation:}\label{derivation}}
+\subsection{Derivation:}\label{derivation}}
 
 Since soft-order constraints for polynomial models are constrained
 minimization of \(E_{in}\), we can equivalently solve an unconstrained
@@ -554,18 +551,18 @@ For the Tikhonov regularizer above,
 \(\Omega(h)=\mathbf{w}^T\Gamma^T\Gamma\mathbf{w}\).
 
     \hypertarget{regularized-linear-regression}{%
-\section{Regularized Linear
+\part{Regularized Linear
 Regression}\label{regularized-linear-regression}}
 
 \hypertarget{problems-7-8}{%
-\subsection{Problems 7-8}\label{problems-7-8}}
+\section{Problems 7-8}\label{problems-7-8}}
 
 \hypertarget{answers-d-8-versus-all-b-1-versus-all}{%
-\subsubsection{Answers: {[}d{]} 8 versus all, {[}b{]} 1 versus
+\subsection{Answers: {[}d{]} 8 versus all, {[}b{]} 1 versus
 all}\label{answers-d-8-versus-all-b-1-versus-all}}
 
 \hypertarget{code}{%
-\subsubsection{Code:}\label{code}}
+\subsection{Code:}\label{code}}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{1}{\boxspacing}
@@ -687,15 +684,15 @@ all}\label{answers-d-8-versus-all-b-1-versus-all}}
 \end{tcolorbox}
         
     \hypertarget{problem-9}{%
-\subsection{Problem 9}\label{problem-9}}
+\section{Problem 9}\label{problem-9}}
 
 \hypertarget{answer-e-the-transform-improves-the-out-of-sample-performance-of-5-versus-all-but-by-less-than-5}{%
-\subsubsection{Answer: {[}e{]} The transform improves the out-of-sample
+\subsection{Answer: {[}e{]} The transform improves the out-of-sample
 performance of `5 versus all', but by less than
 5\%}\label{answer-e-the-transform-improves-the-out-of-sample-performance-of-5-versus-all-but-by-less-than-5}}
 
 \hypertarget{derivation}{%
-\subsubsection{Derivation:}\label{derivation}}
+\subsection{Derivation:}\label{derivation}}
 
 From the table above,
 
@@ -716,15 +713,15 @@ From the table above,
 \end{itemize}
 
     \hypertarget{problem-10}{%
-\subsection{Problem 10}\label{problem-10}}
+\section{Problem 10}\label{problem-10}}
 
 \hypertarget{answer-a-overfitting-occurs-from-lambda1-to-lambda0.01}{%
-\subsubsection{\texorpdfstring{Answer: {[}a{]} Overfitting occurs (from
+\subsection{\texorpdfstring{Answer: {[}a{]} Overfitting occurs (from
 \(\lambda=1\) to
 \(\lambda=0.01\))}{Answer: {[}a{]} Overfitting occurs (from \textbackslash{}lambda=1 to \textbackslash{}lambda=0.01)}}\label{answer-a-overfitting-occurs-from-lambda1-to-lambda0.01}}
 
 \hypertarget{derivationcode}{%
-\subsubsection{Derivation\&Code:}\label{derivationcode}}
+\subsection{Derivation\&Code:}\label{derivationcode}}
 
 From the results below, it is clear that from \(\lambda=1\) to
 \(\lambda=0.01\) overfitting occurs, since \(E_{in}\) is decreasing
@@ -759,17 +756,17 @@ For lambda=1.00, Ein=0.005 and Eout=0.026
     \end{Verbatim}
 
     \hypertarget{support-vector-machines}{%
-\section{Support Vector Machines}\label{support-vector-machines}}
+\part{Support Vector Machines}\label{support-vector-machines}}
 
 \hypertarget{problem-11}{%
-\subsection{Problem 11}\label{problem-11}}
+\section{Problem 11}\label{problem-11}}
 
 \hypertarget{answer-c-10-0.5}{%
-\subsubsection{\texorpdfstring{Answer: {[}c{]}
+\subsection{\texorpdfstring{Answer: {[}c{]}
 \(1,0,-0.5\)}{Answer: {[}c{]} 1,0,-0.5}}\label{answer-c-10-0.5}}
 
 \hypertarget{derivationcode}{%
-\subsubsection{Derivation\&Code:}\label{derivationcode}}
+\subsection{Derivation\&Code:}\label{derivationcode}}
 
 As it can be inferred by the plot below, the only line that correctly
 separates the points is given by the parameters in answer {[}c{]}. We
@@ -866,14 +863,14 @@ fattest margin of separation.
     { \hspace*{\fill} \\}
     
     \hypertarget{problem-12}{%
-\subsection{Problem 12}\label{problem-12}}
+\section{Problem 12}\label{problem-12}}
 
 \hypertarget{answer-c-4-5}{%
-\subsubsection{\texorpdfstring{Answer: {[}c{]}
+\subsection{\texorpdfstring{Answer: {[}c{]}
 \(4-5\)}{Answer: {[}c{]} 4-5}}\label{answer-c-4-5}}
 
 \hypertarget{code}{%
-\subsubsection{Code:}\label{code}}
+\subsection{Code:}\label{code}}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{4}{\boxspacing}
@@ -897,10 +894,10 @@ E\_in=0.0
     \end{Verbatim}
 
     \hypertarget{radial-basis-functions}{%
-\section{Radial Basis Functions}\label{radial-basis-functions}}
+\part{Radial Basis Functions}\label{radial-basis-functions}}
 
 \hypertarget{preliminary-code}{%
-\subsection{Preliminary Code}\label{preliminary-code}}
+\section{Preliminary Code}\label{preliminary-code}}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{5}{\boxspacing}
@@ -1011,15 +1008,15 @@ E\_in=0.0
     { \hspace*{\fill} \\}
     
     \hypertarget{problems-13-14}{%
-\subsection{Problems 13-14}\label{problems-13-14}}
+\section{Problems 13-14}\label{problems-13-14}}
 
 \hypertarget{answers-a-le-5-of-the-time-e-ge-75-of-the-time}{%
-\subsubsection{\texorpdfstring{Answers: {[}a{]} \(\le 5\%\) of the time,
+\subsection{\texorpdfstring{Answers: {[}a{]} \(\le 5\%\) of the time,
 {[}e{]} \(\ge 75\%\) of the
 time}{Answers: {[}a{]} \textbackslash{}le 5\textbackslash{}\% of the time, {[}e{]} \textbackslash{}ge 75\textbackslash{}\% of the time}}\label{answers-a-le-5-of-the-time-e-ge-75-of-the-time}}
 
 \hypertarget{code}{%
-\subsubsection{Code:}\label{code}}
+\subsection{Code:}\label{code}}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{6}{\boxspacing}
@@ -1055,15 +1052,15 @@ Out of Nruns=100, kernel beats regular RBF (gamma=1.5 and k=9)
     \end{Verbatim}
 
     \hypertarget{problem-15}{%
-\subsection{Problem 15}\label{problem-15}}
+\section{Problem 15}\label{problem-15}}
 
 \hypertarget{answer-d-60-but-le-90-of-the-time}{%
-\subsubsection{\texorpdfstring{Answer: {[}d{]} \(> 60\%\) but
+\subsection{\texorpdfstring{Answer: {[}d{]} \(> 60\%\) but
 \(\le 90\%\) of the
 time}{Answer: {[}d{]} \textgreater{} 60\textbackslash{}\% but \textbackslash{}le 90\textbackslash{}\% of the time}}\label{answer-d-60-but-le-90-of-the-time}}
 
 \hypertarget{code}{%
-\subsubsection{Code:}\label{code}}
+\subsection{Code:}\label{code}}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{7}{\boxspacing}
@@ -1092,15 +1089,15 @@ Out of Nruns=100, kernel beats regular RBF (gamma=1.5 and k=12)
     \end{Verbatim}
 
     \hypertarget{problem-16}{%
-\subsection{Problem 16}\label{problem-16}}
+\section{Problem 16}\label{problem-16}}
 
 \hypertarget{answer-d-both-e_in-and-e_out-go-down}{%
-\subsubsection{\texorpdfstring{Answer: {[}d{]} Both \(E_{in}\) and
+\subsection{\texorpdfstring{Answer: {[}d{]} Both \(E_{in}\) and
 \(E_{out}\) go
 down}{Answer: {[}d{]} Both E\_\{in\} and E\_\{out\} go down}}\label{answer-d-both-e_in-and-e_out-go-down}}
 
 \hypertarget{code}{%
-\subsubsection{Code:}\label{code}}
+\subsection{Code:}\label{code}}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{8}{\boxspacing}
@@ -1137,15 +1134,15 @@ Out of Nruns=100,
     \end{Verbatim}
 
     \hypertarget{problem-17}{%
-\subsection{Problem 17}\label{problem-17}}
+\section{Problem 17}\label{problem-17}}
 
 \hypertarget{answer-c-both-e_in-and-e_out-go-up}{%
-\subsubsection{\texorpdfstring{Answer: {[}c{]} Both \(E_{in}\) and
+\subsection{\texorpdfstring{Answer: {[}c{]} Both \(E_{in}\) and
 \(E_{out}\) go
 up}{Answer: {[}c{]} Both E\_\{in\} and E\_\{out\} go up}}\label{answer-c-both-e_in-and-e_out-go-up}}
 
 \hypertarget{code}{%
-\subsubsection{Code:}\label{code}}
+\subsection{Code:}\label{code}}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{9}{\boxspacing}
@@ -1181,14 +1178,14 @@ Out of Nruns=100,
     \end{Verbatim}
 
     \hypertarget{problem-18}{%
-\subsection{Problem 18}\label{problem-18}}
+\section{Problem 18}\label{problem-18}}
 
 \hypertarget{answer-a-le-10-of-the-time}{%
-\subsubsection{\texorpdfstring{Answer: {[}a{]} \(\le 10 \%\) of the
+\subsection{\texorpdfstring{Answer: {[}a{]} \(\le 10 \%\) of the
 time}{Answer: {[}a{]} \textbackslash{}le 10 \textbackslash{}\% of the time}}\label{answer-a-le-10-of-the-time}}
 
 \hypertarget{code}{%
-\subsubsection{Code:}\label{code}}
+\subsection{Code:}\label{code}}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{10}{\boxspacing}
@@ -1216,18 +1213,18 @@ regular RBF achieves Ein=0 (with gamma=1.5 and k=9) 7\% of the times
     \end{Verbatim}
 
     \hypertarget{bayesian-priors}{%
-\section{Bayesian Priors}\label{bayesian-priors}}
+\part{Bayesian Priors}\label{bayesian-priors}}
 
 \hypertarget{problem-19}{%
-\subsection{Problem 19}\label{problem-19}}
+\section{Problem 19}\label{problem-19}}
 
 \hypertarget{answer-b-the-posterior-increases-linearly-over-01.}{%
-\subsubsection{\texorpdfstring{Answer: {[}b{]} The posterior increases
+\subsection{\texorpdfstring{Answer: {[}b{]} The posterior increases
 linearly over
 \([0,1]\).}{Answer: {[}b{]} The posterior increases linearly over {[}0,1{]}.}}\label{answer-b-the-posterior-increases-linearly-over-01.}}
 
 \hypertarget{derivation}{%
-\subsubsection{Derivation:}\label{derivation}}
+\subsection{Derivation:}\label{derivation}}
 
 According to the Bayesian approach, the posterior, i.e.~the probability
 distribution \(\mathcal{P}(h=f|\mathcal{D})\) that the hypothesis \(h\)
@@ -1271,23 +1268,22 @@ where \(x\in[0,1]\), i.e.~the posterior probability that \(h=f\)
 increases linearly over \([0,1]\).
 
     \hypertarget{aggregation}{%
-\section{Aggregation}\label{aggregation}}
+\part{Aggregation}\label{aggregation}}
 
 \hypertarget{problem-20}{%
-\subsection{Problem 20}\label{problem-20}}
+\section{Problem 20}\label{problem-20}}
 
 \hypertarget{answer-c-e_outg-cannot-be-worse-than-the-average-of-e_outg_1-and-e_outg_2.}{%
-\subsubsection{\texorpdfstring{Answer: {[}c{]} \(E_{out}(g)\) cannot be
+\subsection{\texorpdfstring{Answer: {[}c{]} \(E_{out}(g)\) cannot be
 worse than the average of \(E_{out}(g_1)\) and
 \(E_{out}(g_2)\).}{Answer: {[}c{]} E\_\{out\}(g) cannot be worse than the average of E\_\{out\}(g\_1) and E\_\{out\}(g\_2).}}\label{answer-c-e_outg-cannot-be-worse-than-the-average-of-e_outg_1-and-e_outg_2.}}
 
 \hypertarget{derivation}{%
-\subsubsection{Derivation:}\label{derivation}}
+\subsection{Derivation:}\label{derivation}}
 
 Using the mean-square error definition, we have that the error
 \(E_{out}(g)\) on the aggregate hypothesis \(g=\frac{1}{2} (g_1+g_2)\)
 is
-
 \begin{equation}
 E_{out}(g)=\mathbb{E}\left[\left(f-g\right)^2\right]=\mathbb{E}\left[\left(f-\frac{1}{2}(g_1+g_2)\right)^2\right]\,,
 \end{equation}
@@ -1297,11 +1293,11 @@ on which the expectation value \(\mathbb{E}\) is computed on.
 
 After some algebraic manipulation, using the linearity of \(\mathbb{E}\)
 we can write:
-
 \begin{equation}
-E_{out}(g)=\frac{1}{2}\left\{\mathbb{E}\left[\left(f-g_1\right)^2\right]+\mathbb{E}\left[\left(f-g_2\right)^2\right]\right\}-\frac{1}{4}\mathbb{E}\left[\left(g_1-g_2\right)^2\right]=\frac{E_{out}(g_1)+E_{out}(g_2)}{2}-\sigma^2=\,\bar{E}_{out}-\sigma^2,
+\begin{split}
+E_{out}(g)&=\frac{1}{2}\left\{\mathbb{E}\left[\left(f-g_1\right)^2\right]+\mathbb{E}\left[\left(f-g_2\right)^2\right]\right\}-\frac{1}{4}\mathbb{E}\left[\left(g_1-g_2\right)^2\right]\\ &=\frac{E_{out}(g_1)+E_{out}(g_2)}{2}-\sigma^2=\bar{E}_{out}-\sigma^2\,,
+\end{split}
 \end{equation}
-
 where
 \(\sigma^2\equiv\frac{1}{4}\mathbb{E}\left[\left(g_1-g_2\right)^2\right]\)
 is a positive defined quantity. This last relation shows that
