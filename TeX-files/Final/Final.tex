@@ -1,0 +1,1323 @@
+\documentclass[11pt]{article}
+
+    \usepackage[breakable]{tcolorbox}
+    \usepackage{parskip} % Stop auto-indenting (to mimic markdown behaviour)
+    
+    \usepackage{iftex}
+    \ifPDFTeX
+    	\usepackage[T1]{fontenc}
+    	\usepackage{mathpazo}
+    \else
+    	\usepackage{fontspec}
+    \fi
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % Maintain compatibility with old templates. Remove in nbconvert 6.0
+    \let\Oldincludegraphics\includegraphics
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionFormat{nocaption}{}
+    \captionsetup{format=nocaption,aboveskip=0pt,belowskip=0pt}
+
+    \usepackage[Export]{adjustbox} % Used to constrain images to a maximum size
+    \adjustboxset{max size={0.9\linewidth}{0.9\paperheight}}
+    \usepackage{float}
+    \floatplacement{figure}{H} % forces figures to be placed at the correct location
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range
+    \makeatletter % fix for grffile with XeLaTeX
+    \def\Gread@@xetex#1{%
+      \IfFileExists{"\Gin@base".bb}%
+      {\Gread@eps{\Gin@base.bb}}%
+      {\Gread@@xetex@aux#1}%
+    }
+    \makeatother
+
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    % The default LaTeX title has an obnoxious amount of whitespace. By default,
+    % titling removes some of it. It also provides customization options.
+    \usepackage{titling}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    \usepackage{mathrsfs}
+    
+
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+    \definecolor{ansi-default-inverse-fg}{HTML}{FFFFFF}
+    \definecolor{ansi-default-inverse-bg}{HTML}{000000}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatibility definitions
+    \def\gt{>}
+    \def\lt{<}
+    \let\Oldtex\TeX
+    \let\Oldlatex\LaTeX
+    \renewcommand{\TeX}{\textrm{\Oldtex}}
+    \renewcommand{\LaTeX}{\textrm{\Oldlatex}}
+    % Document parameters
+    % Document title
+    \title{Final}
+    
+    
+    
+    
+    
+% Pygments definitions
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % For linebreaks inside Verbatim environment from package fancyvrb. 
+    \makeatletter
+        \newbox\Wrappedcontinuationbox 
+        \newbox\Wrappedvisiblespacebox 
+        \newcommand*\Wrappedvisiblespace {\textcolor{red}{\textvisiblespace}} 
+        \newcommand*\Wrappedcontinuationsymbol {\textcolor{red}{\llap{\tiny$\m@th\hookrightarrow$}}} 
+        \newcommand*\Wrappedcontinuationindent {3ex } 
+        \newcommand*\Wrappedafterbreak {\kern\Wrappedcontinuationindent\copy\Wrappedcontinuationbox} 
+        % Take advantage of the already applied Pygments mark-up to insert 
+        % potential linebreaks for TeX processing. 
+        %        {, <, #, %, $, ' and ": go to next line. 
+        %        _, }, ^, &, >, - and ~: stay at end of broken line. 
+        % Use of \textquotesingle for straight quote. 
+        \newcommand*\Wrappedbreaksatspecials {% 
+            \def\PYGZus{\discretionary{\char`\_}{\Wrappedafterbreak}{\char`\_}}% 
+            \def\PYGZob{\discretionary{}{\Wrappedafterbreak\char`\{}{\char`\{}}% 
+            \def\PYGZcb{\discretionary{\char`\}}{\Wrappedafterbreak}{\char`\}}}% 
+            \def\PYGZca{\discretionary{\char`\^}{\Wrappedafterbreak}{\char`\^}}% 
+            \def\PYGZam{\discretionary{\char`\&}{\Wrappedafterbreak}{\char`\&}}% 
+            \def\PYGZlt{\discretionary{}{\Wrappedafterbreak\char`\<}{\char`\<}}% 
+            \def\PYGZgt{\discretionary{\char`\>}{\Wrappedafterbreak}{\char`\>}}% 
+            \def\PYGZsh{\discretionary{}{\Wrappedafterbreak\char`\#}{\char`\#}}% 
+            \def\PYGZpc{\discretionary{}{\Wrappedafterbreak\char`\%}{\char`\%}}% 
+            \def\PYGZdl{\discretionary{}{\Wrappedafterbreak\char`\$}{\char`\$}}% 
+            \def\PYGZhy{\discretionary{\char`\-}{\Wrappedafterbreak}{\char`\-}}% 
+            \def\PYGZsq{\discretionary{}{\Wrappedafterbreak\textquotesingle}{\textquotesingle}}% 
+            \def\PYGZdq{\discretionary{}{\Wrappedafterbreak\char`\"}{\char`\"}}% 
+            \def\PYGZti{\discretionary{\char`\~}{\Wrappedafterbreak}{\char`\~}}% 
+        } 
+        % Some characters . , ; ? ! / are not pygmentized. 
+        % This macro makes them "active" and they will insert potential linebreaks 
+        \newcommand*\Wrappedbreaksatpunct {% 
+            \lccode`\~`\.\lowercase{\def~}{\discretionary{\hbox{\char`\.}}{\Wrappedafterbreak}{\hbox{\char`\.}}}% 
+            \lccode`\~`\,\lowercase{\def~}{\discretionary{\hbox{\char`\,}}{\Wrappedafterbreak}{\hbox{\char`\,}}}% 
+            \lccode`\~`\;\lowercase{\def~}{\discretionary{\hbox{\char`\;}}{\Wrappedafterbreak}{\hbox{\char`\;}}}% 
+            \lccode`\~`\:\lowercase{\def~}{\discretionary{\hbox{\char`\:}}{\Wrappedafterbreak}{\hbox{\char`\:}}}% 
+            \lccode`\~`\?\lowercase{\def~}{\discretionary{\hbox{\char`\?}}{\Wrappedafterbreak}{\hbox{\char`\?}}}% 
+            \lccode`\~`\!\lowercase{\def~}{\discretionary{\hbox{\char`\!}}{\Wrappedafterbreak}{\hbox{\char`\!}}}% 
+            \lccode`\~`\/\lowercase{\def~}{\discretionary{\hbox{\char`\/}}{\Wrappedafterbreak}{\hbox{\char`\/}}}% 
+            \catcode`\.\active
+            \catcode`\,\active 
+            \catcode`\;\active
+            \catcode`\:\active
+            \catcode`\?\active
+            \catcode`\!\active
+            \catcode`\/\active 
+            \lccode`\~`\~ 	
+        }
+    \makeatother
+
+    \let\OriginalVerbatim=\Verbatim
+    \makeatletter
+    \renewcommand{\Verbatim}[1][1]{%
+        %\parskip\z@skip
+        \sbox\Wrappedcontinuationbox {\Wrappedcontinuationsymbol}%
+        \sbox\Wrappedvisiblespacebox {\FV@SetupFont\Wrappedvisiblespace}%
+        \def\FancyVerbFormatLine ##1{\hsize\linewidth
+            \vtop{\raggedright\hyphenpenalty\z@\exhyphenpenalty\z@
+                \doublehyphendemerits\z@\finalhyphendemerits\z@
+                \strut ##1\strut}%
+        }%
+        % If the linebreak is at a space, the latter will be displayed as visible
+        % space at end of first line, and a continuation symbol starts next line.
+        % Stretch/shrink are however usually zero for typewriter font.
+        \def\FV@Space {%
+            \nobreak\hskip\z@ plus\fontdimen3\font minus\fontdimen4\font
+            \discretionary{\copy\Wrappedvisiblespacebox}{\Wrappedafterbreak}
+            {\kern\fontdimen2\font}%
+        }%
+        
+        % Allow breaks at special characters using \PYG... macros.
+        \Wrappedbreaksatspecials
+        % Breaks at punctuation characters . , ; ? ! and / need catcode=\active 	
+        \OriginalVerbatim[#1,codes*=\Wrappedbreaksatpunct]%
+    }
+    \makeatother
+
+    % Exact colors from NB
+    \definecolor{incolor}{HTML}{303F9F}
+    \definecolor{outcolor}{HTML}{D84315}
+    \definecolor{cellborder}{HTML}{CFCFCF}
+    \definecolor{cellbackground}{HTML}{F7F7F7}
+    
+    % prompt
+    \makeatletter
+    \newcommand{\boxspacing}{\kern\kvtcb@left@rule\kern\kvtcb@boxsep}
+    \makeatother
+    \newcommand{\prompt}[4]{
+        \ttfamily\llap{{\color{#2}[#3]:\hspace{3pt}#4}}\vspace{-\baselineskip}
+    }
+    
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+\begin{document}
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{cs-156a---final-exam}{%
+\section{CS 156a - Final Exam}\label{cs-156a---final-exam}}
+
+\hypertarget{patrone-samuel-2140749}{%
+\subsection{Patrone Samuel, 2140749}\label{patrone-samuel-2140749}}
+
+The following notebook is publicly available at
+https://github.com/spatrone/CS156A-Caltech.git.
+
+    \hypertarget{non-linear-transform}{%
+\section{Non-linear Transform}\label{non-linear-transform}}
+
+\hypertarget{problem-1}{%
+\subsection{Problem 1}\label{problem-1}}
+
+\hypertarget{answer-e-none-of-the-above.}{%
+\subsubsection{Answer: {[}e{]} None of the
+above.}\label{answer-e-none-of-the-above.}}
+
+\hypertarget{derivation}{%
+\subsubsection{Derivation:}\label{derivation}}
+
+Let's consider the general \(\mathcal{Q}\)th order polynomial transform
+\(\Phi_\mathcal{Q}\) for the space \(\mathcal{x}=\mathbb{R}^d\). We can
+find the dimensionality \(\tilde{d}\) of the feature space
+\(\mathcal{Z}\) by observing that we can form \(C(d,k)\) different
+monomials of order \(k\) from the \(d\) initial coordinates, where
+
+\begin{equation}
+C(d,k)={d+k-1 \choose k}\,.
+\end{equation}
+
+Since \(\Phi_\mathcal{Q}\) will have all possible monomials up to order
+\(\mathcal{Q}\) as transformed coordinates, the feature space
+\(\mathcal{Z}\) will have a dimensionality
+
+\begin{equation}
+\tilde{d}(Q,d)=\sum^Q_{k=1}{d+k-1 \choose k}\,.
+\end{equation}
+
+For \(d=2\) and \(Q=10\), we get
+
+\begin{equation}
+\tilde{d}(Q=10,d=2)=\sum^Q_{k=1}{k+1 \choose k}= \sum^Q_{k=1} k+1 = \frac{Q(Q+3)}{2} = \frac{10 \times 13}{2}=65\,.
+\end{equation}
+
+    \hypertarget{bias-and-variance}{%
+\section{Bias and Variance}\label{bias-and-variance}}
+
+\hypertarget{problem-2}{%
+\subsection{Problem 2}\label{problem-2}}
+
+\hypertarget{answer-d-mathcalh-is-the-logistic-regression-model.}{%
+\subsubsection{\texorpdfstring{Answer: {[}d{]} \(\mathcal{H}\) is the
+logistic regression
+model.}{Answer: {[}d{]} \textbackslash{}mathcal\{H\} is the logistic regression model.}}\label{answer-d-mathcalh-is-the-logistic-regression-model.}}
+
+\hypertarget{derivation}{%
+\subsubsection{Derivation:}\label{derivation}}
+
+By definition of average hypothesis,
+
+\begin{equation}
+\bar{g}=\frac{1}{K}\sum_{k=1}^K g_k\,,
+\end{equation}
+
+where \(g_k\) is the final hypothesis generated by the dataset
+\(\mathcal{D}_k\). Since the average hypothesis is a linear combination
+of hypothesis taken from the space \(\mathcal{H}\), only a linear
+combination of non-linear functions can be outside of \(\mathcal{H}\).
+Specifically, for the case of logistic regression we use non-linear
+functions as the sigmoid or the hyperbolic tangent, whose linear
+combinations are not generally sigmoids or hyperbolic tangents
+respectively.
+
+    \hypertarget{overfitting}{%
+\section{Overfitting}\label{overfitting}}
+
+\hypertarget{problem-3}{%
+\subsection{Problem 3}\label{problem-3}}
+
+\hypertarget{answer-d-we-can-always-determine-if-there-is-overfitting-by-comparing-the-values-of-e_out-e_in.}{%
+\subsubsection{\texorpdfstring{Answer: {[}d{]} We can always determine
+if there is overfitting by comparing the values of
+\((E_{out}-E_{in})\).}{Answer: {[}d{]} We can always determine if there is overfitting by comparing the values of (E\_\{out\}-E\_\{in\}).}}\label{answer-d-we-can-always-determine-if-there-is-overfitting-by-comparing-the-values-of-e_out-e_in.}}
+
+\hypertarget{derivation}{%
+\subsubsection{Derivation:}\label{derivation}}
+
+Overfitting is, by definition, the case in which, between two
+hypothesis, the one with lower \(E_{in}\) is preferred, and it results
+in an higher \(E_{out}\). This happens because \(E_{in}\) starts loosing
+track of \(E_{out}\) since the chosen hypothesis is fitting the noise
+(stochastic or deterministic). If there is overfitting, there must be
+two or more hypothesis that have different values of
+\((E_{out}-E_{in})\). However, comparing the values of
+\((E_{out}-E_{in})\) for two hypothesis does not always determine of
+there is overfitting in choosing the one with a lower \(E_{in}\). For
+example, the difference between the two hypothesis in the values of
+\((E_{out}-E_{in})\) may depend on underfitting (which will produce an
+higher \(E_{out}\)) or stochastic properties of the test set.
+
+    \hypertarget{problem-4}{%
+\subsection{Problem 4}\label{problem-4}}
+
+\hypertarget{answer-d-stochastic-noise-does-not-depend-on-the-hypothesis-set.}{%
+\subsubsection{Answer: {[}d{]} Stochastic noise does not depend on the
+hypothesis
+set.}\label{answer-d-stochastic-noise-does-not-depend-on-the-hypothesis-set.}}
+
+\hypertarget{derivation}{%
+\subsubsection{Derivation:}\label{derivation}}
+
+Stochastic noise is a property of the data we are given with respect to
+the target function and it is independent on the hypothesis set chosen.
+The amount of noise that can be captured by the fit depends on the
+hypothesis set chosen: an higher complexity of the hypothesis may reduce
+\(E_{in}\) although resulting in an higher \(E_{out}\), leading to the
+most common case of overfitting.
+
+    \hypertarget{regularization}{%
+\section{Regularization}\label{regularization}}
+
+\hypertarget{problem-5}{%
+\subsection{Problem 5}\label{problem-5}}
+
+\hypertarget{answer-a-mathbfw_regmathbfw_lin}{%
+\subsubsection{\texorpdfstring{Answer: {[}a{]}
+\(\mathbf{w}_{reg}=\mathbf{w}_{lin}\)}{Answer: {[}a{]} \textbackslash{}mathbf\{w\}\_\{reg\}=\textbackslash{}mathbf\{w\}\_\{lin\}}}\label{answer-a-mathbfw_regmathbfw_lin}}
+
+\hypertarget{derivation}{%
+\subsubsection{Derivation:}\label{derivation}}
+
+If \(\mathbf{w}_{lin}\) already satisfies the constrain
+\(\mathbf{w}_{lin}^T\Gamma^T\Gamma\mathbf{w}_{lin}\le C\), the Tikhonov
+regularization constrain will not affect the results of linear
+regression, giving \(\mathbf{w}_{reg}=\mathbf{w}_{lin}\).
+
+This result can be easily seen by noticing that the Tikhonov regularized
+weights \(\mathbf{w}_{reg}\) is a solution of the following problem:
+
+\begin{equation}
+{\rm min}_\mathbf{w} \frac{1}{N}\sum_{n=1}^N(\mathbf{w}^T\mathbf{x}_n-y_n)^2 \;\; {\rm subject \; to} \;\; \mathbf{w}^T\Gamma^T\Gamma\mathbf{w}\le C\,.
+\end{equation}
+
+We define the soft-order constrained hypothesis set \(\mathcal{H}(C)\)
+as
+
+\begin{equation}
+\mathcal{H}(C)=\left\{h|h(\mathbf{x})=\mathbf{w}^T\mathbf{x}, \mathbf{w}^T\Gamma^T\Gamma\mathbf{w}\le C\right\}
+\end{equation}
+
+where \(\mathbf{w}_{reg}\in \mathcal{H}(C)\) by definition.
+
+Since \(\mathbf{w}_{lin}^T\Gamma^T\Gamma\mathbf{w}_{lin}\le C\), we have
+that \(\mathbf{w}_{lin}\in\mathcal{H}(C)\).
+Therefore,\(\mathbf{w}_{reg}=\mathbf{w}_{lin}\).
+
+    \hypertarget{problem-6}{%
+\subsection{Problem 6}\label{problem-6}}
+
+\hypertarget{answer-b-translated-into-augmented-error}{%
+\subsubsection{Answer: {[}b{]} Translated into augmented
+error}\label{answer-b-translated-into-augmented-error}}
+
+\hypertarget{derivation}{%
+\subsubsection{Derivation:}\label{derivation}}
+
+Since soft-order constraints for polynomial models are constrained
+minimization of \(E_{in}\), we can equivalently solve an unconstrained
+minimization of a different function, called augmented error
+
+\begin{equation}
+E_{aug}(h,\lambda,\Omega) = E_{in}(h)+\frac{\lambda}{N}\Omega(h)\,.
+\end{equation}
+
+where \(\lambda\) is a Lagrange multiplier that controls the amount of
+regularization, introducing a penalty term, and it is related to \(C\),
+the parameter controlling the soft-order constrain.
+
+For the Tikhonov regularizer above,
+\(\Omega(h)=\mathbf{w}^T\Gamma^T\Gamma\mathbf{w}\).
+
+    \hypertarget{regularized-linear-regression}{%
+\section{Regularized Linear
+Regression}\label{regularized-linear-regression}}
+
+\hypertarget{problems-7-8}{%
+\subsection{Problems 7-8}\label{problems-7-8}}
+
+\hypertarget{answers-d-8-versus-all-b-1-versus-all}{%
+\subsubsection{Answers: {[}d{]} 8 versus all, {[}b{]} 1 versus
+all}\label{answers-d-8-versus-all-b-1-versus-all}}
+
+\hypertarget{code}{%
+\subsubsection{Code:}\label{code}}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{1}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+\PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+\PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+
+\PY{c+c1}{\PYZsh{}import data}
+
+\PY{n}{training\PYZus{}set}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{features.train}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{header}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,}\PY{n}{delim\PYZus{}whitespace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\PY{n}{testing\PYZus{}set}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{features.test}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{header}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,}\PY{n}{delim\PYZus{}whitespace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+
+\PY{n}{train\PYZus{}pts}\PY{o}{=}\PY{n}{training\PYZus{}set}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{to\PYZus{}numpy}\PY{p}{(}\PY{p}{)}
+\PY{n}{train\PYZus{}y}\PY{o}{=}\PY{n}{training\PYZus{}set}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{to\PYZus{}numpy}\PY{p}{(}\PY{p}{)}
+
+\PY{n}{test\PYZus{}pts}\PY{o}{=}\PY{n}{testing\PYZus{}set}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{to\PYZus{}numpy}\PY{p}{(}\PY{p}{)}
+\PY{n}{test\PYZus{}y}\PY{o}{=}\PY{n}{testing\PYZus{}set}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{to\PYZus{}numpy}\PY{p}{(}\PY{p}{)}
+    
+\PY{c+c1}{\PYZsh{} Binary classifier}
+
+\PY{k}{def} \PY{n+nf}{label\PYZus{}n}\PY{p}{(}\PY{n}{y}\PY{p}{,}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+    \PY{n}{res}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{y}\PY{p}{)}\PY{p}{)}
+    \PY{n}{res}\PY{p}{[}\PY{n}{y}\PY{o}{==}\PY{n}{n}\PY{p}{]}\PY{o}{=}\PY{l+m+mi}{1}
+    \PY{k}{return} \PY{n}{res}
+
+\PY{c+c1}{\PYZsh{} Non\PYZhy{}linear Transform}
+
+\PY{k}{def} \PY{n+nf}{transform}\PY{p}{(}\PY{n}{pts}\PY{p}{,}\PY{n}{nonlin}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{p}{:}
+    \PY{n}{res}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+    \PY{k}{if}\PY{p}{(}\PY{n}{nonlin}\PY{p}{)}\PY{p}{:}
+        \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{pts}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+            \PY{n}{x1}\PY{o}{=}\PY{n}{pts}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+            \PY{n}{x2}\PY{o}{=}\PY{n}{pts}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+            \PY{n}{res}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{x1}\PY{p}{,}\PY{n}{x2}\PY{p}{,}\PY{n}{x1}\PY{o}{*}\PY{n}{x2}\PY{p}{,}\PY{n}{x1}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{,}\PY{n}{x2}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+    \PY{k}{else}\PY{p}{:}
+        \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{pts}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+            \PY{n}{x1}\PY{o}{=}\PY{n}{pts}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+            \PY{n}{x2}\PY{o}{=}\PY{n}{pts}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+            \PY{n}{res}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{x1}\PY{p}{,}\PY{n}{x2}\PY{p}{]}\PY{p}{)}
+    \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{res}\PY{p}{)}
+        
+\PY{c+c1}{\PYZsh{}Linear Regression with weight decay}
+
+\PY{k}{def} \PY{n+nf}{h}\PY{p}{(}\PY{n}{pts}\PY{p}{,}\PY{n}{w}\PY{p}{)}\PY{p}{:}
+    \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{sign}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{w}\PY{p}{,}\PY{n}{pts}\PY{o}{.}\PY{n}{T}\PY{p}{)}\PY{p}{)}
+
+\PY{k}{def} \PY{n+nf}{lin\PYZus{}reg\PYZus{}w\PYZus{}lam}\PY{p}{(}\PY{n}{X}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{n}{lam}\PY{p}{)}\PY{p}{:}
+    \PY{n}{pinv\PYZus{}decay}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{inv}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{X}\PY{o}{.}\PY{n}{T}\PY{p}{,}\PY{n}{X}\PY{p}{)}\PY{o}{+}\PY{n}{lam}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{identity}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{X}\PY{o}{.}\PY{n}{T}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n}{X}\PY{o}{.}\PY{n}{T}\PY{p}{)}
+    \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{pinv\PYZus{}decay}\PY{p}{,}\PY{n}{y}\PY{p}{)}
+
+\PY{k}{def} \PY{n+nf}{lin\PYZus{}reg\PYZus{}wdecay}\PY{p}{(}\PY{n}{train\PYZus{}pts}\PY{p}{,}\PY{n}{train\PYZus{}y}\PY{p}{,}\PY{n}{test\PYZus{}pts}\PY{p}{,}\PY{n}{test\PYZus{}y}\PY{p}{,}\PY{n}{lam}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{res}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{p}{:}
+    \PY{n}{N\PYZus{}train}\PY{o}{=}\PY{n+nb}{len}\PY{p}{(}\PY{n}{train\PYZus{}pts}\PY{p}{)}
+    \PY{n}{N\PYZus{}test}\PY{o}{=}\PY{n+nb}{len}\PY{p}{(}\PY{n}{test\PYZus{}pts}\PY{p}{)}
+    
+    \PY{n}{w}\PY{o}{=}\PY{n}{lin\PYZus{}reg\PYZus{}w\PYZus{}lam}\PY{p}{(}\PY{n}{train\PYZus{}pts}\PY{p}{,}\PY{n}{train\PYZus{}y}\PY{p}{,}\PY{n}{lam}\PY{p}{)}
+    
+    \PY{c+c1}{\PYZsh{}Ein computation}
+    \PY{n}{gin}\PY{o}{=}\PY{n}{h}\PY{p}{(}\PY{n}{train\PYZus{}pts}\PY{p}{,}\PY{n}{w}\PY{p}{)}
+    \PY{n}{testgin}\PY{o}{=}\PY{p}{(}\PY{n}{gin}\PY{o}{==}\PY{n}{train\PYZus{}y}\PY{p}{)}
+    \PY{n}{Ein}\PY{o}{=}\PY{n+nb}{len}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{where}\PY{p}{(}\PY{n}{testgin}\PY{o}{==}\PY{k+kc}{False}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{o}{/}\PY{n}{N\PYZus{}train}
+    
+    \PY{c+c1}{\PYZsh{}Eout computation}
+    \PY{n}{gout}\PY{o}{=}\PY{n}{h}\PY{p}{(}\PY{n}{test\PYZus{}pts}\PY{p}{,}\PY{n}{w}\PY{p}{)}
+    \PY{n}{testgout}\PY{o}{=}\PY{p}{(}\PY{n}{gout}\PY{o}{==}\PY{n}{test\PYZus{}y}\PY{p}{)}
+    \PY{n}{Eout}\PY{o}{=}\PY{n+nb}{len}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{where}\PY{p}{(}\PY{n}{testgout}\PY{o}{==}\PY{k+kc}{False}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{o}{/}\PY{n}{N\PYZus{}test}
+    
+    \PY{c+c1}{\PYZsh{}print results}
+    \PY{k}{if}\PY{p}{(}\PY{n}{res}\PY{o}{==}\PY{k+kc}{True}\PY{p}{)}\PY{p}{:}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Linear Regression results with Lambda=}\PY{l+s+si}{\PYZob{}lam:.2f\PYZcb{}}\PY{l+s+s1}{:}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{Ein=}\PY{l+s+si}{\PYZob{}Ein:.2f\PYZcb{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{Eout=}\PY{l+s+si}{\PYZob{}Eout:.2f\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+    
+    \PY{k}{return} \PY{n}{Ein}\PY{p}{,}\PY{n}{Eout}
+
+\PY{n}{Ein}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+\PY{n}{Eout}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+\PY{n}{Ein\PYZus{}tr}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+\PY{n}{Eout\PYZus{}tr}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+\PY{n}{label}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+
+\PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{:}
+    \PY{n}{x\PYZus{}train}\PY{o}{=}\PY{n}{transform}\PY{p}{(}\PY{n}{train\PYZus{}pts}\PY{p}{,}\PY{n}{nonlin}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+    \PY{n}{z\PYZus{}train}\PY{o}{=}\PY{n}{transform}\PY{p}{(}\PY{n}{train\PYZus{}pts}\PY{p}{)}
+    \PY{n}{y\PYZus{}train}\PY{o}{=}\PY{n}{label\PYZus{}n}\PY{p}{(}\PY{n}{train\PYZus{}y}\PY{p}{,}\PY{n}{i}\PY{p}{)}
+    
+    \PY{n}{x\PYZus{}test}\PY{o}{=}\PY{n}{transform}\PY{p}{(}\PY{n}{test\PYZus{}pts}\PY{p}{,}\PY{n}{nonlin}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+    \PY{n}{z\PYZus{}test}\PY{o}{=}\PY{n}{transform}\PY{p}{(}\PY{n}{test\PYZus{}pts}\PY{p}{)}
+    \PY{n}{y\PYZus{}test}\PY{o}{=}\PY{n}{label\PYZus{}n}\PY{p}{(}\PY{n}{test\PYZus{}y}\PY{p}{,}\PY{n}{i}\PY{p}{)}
+    
+    \PY{n}{Ein\PYZus{}tmp}\PY{p}{,}\PY{n}{Eout\PYZus{}tmp}\PY{o}{=}\PY{n}{lin\PYZus{}reg\PYZus{}wdecay}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{,}\PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{x\PYZus{}test}\PY{p}{,}\PY{n}{y\PYZus{}test}\PY{p}{,}\PY{n}{res}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+    \PY{n}{Ein\PYZus{}tr\PYZus{}tmp}\PY{p}{,}\PY{n}{Eout\PYZus{}tr\PYZus{}tmp}\PY{o}{=}\PY{n}{lin\PYZus{}reg\PYZus{}wdecay}\PY{p}{(}\PY{n}{z\PYZus{}train}\PY{p}{,}\PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{z\PYZus{}test}\PY{p}{,}\PY{n}{y\PYZus{}test}\PY{p}{,}\PY{n}{res}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+    
+    \PY{n}{Ein}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{Ein\PYZus{}tmp}\PY{p}{)}
+    \PY{n}{Ein\PYZus{}tr}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{Ein\PYZus{}tr\PYZus{}tmp}\PY{p}{)}
+    \PY{n}{Eout}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{Eout\PYZus{}tmp}\PY{p}{)}
+    \PY{n}{Eout\PYZus{}tr}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{Eout\PYZus{}tr\PYZus{}tmp}\PY{p}{)}
+    
+    \PY{n}{label}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZpc{}i}\PY{l+s+s1}{ VS all}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}}\PY{k}{i})
+    
+\PY{n}{pd}\PY{o}{.}\PY{n}{options}\PY{o}{.}\PY{n}{display}\PY{o}{.}\PY{n}{float\PYZus{}format} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZob{}:,.3f\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}   
+\PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{zip}\PY{p}{(}\PY{n}{label}\PY{p}{,}\PY{n}{Ein}\PY{p}{,}\PY{n}{Ein\PYZus{}tr}\PY{p}{,}\PY{n}{Eout}\PY{p}{,}\PY{n}{Eout\PYZus{}tr}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{columns} \PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Classifier}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ein}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ein\PYZus{}tr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Eout}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Eout\PYZus{}tr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\prompt{Out}{outcolor}{1}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+  Classifier   Ein  Ein\_tr  Eout  Eout\_tr
+0   0 VS all 0.109   0.102 0.115    0.107
+1   1 VS all 0.015   0.012 0.022    0.022
+2   2 VS all 0.100   0.100 0.099    0.099
+3   3 VS all 0.090   0.090 0.083    0.083
+4   4 VS all 0.089   0.089 0.100    0.100
+5   5 VS all 0.076   0.076 0.080    0.079
+6   6 VS all 0.091   0.091 0.085    0.085
+7   7 VS all 0.088   0.088 0.073    0.073
+8   8 VS all 0.074   0.074 0.083    0.083
+9   9 VS all 0.088   0.088 0.088    0.088
+\end{Verbatim}
+\end{tcolorbox}
+        
+    \hypertarget{problem-9}{%
+\subsection{Problem 9}\label{problem-9}}
+
+\hypertarget{answer-e-the-transform-improves-the-out-of-sample-performance-of-5-versus-all-but-by-less-than-5}{%
+\subsubsection{Answer: {[}e{]} The transform improves the out-of-sample
+performance of `5 versus all', but by less than
+5\%}\label{answer-e-the-transform-improves-the-out-of-sample-performance-of-5-versus-all-but-by-less-than-5}}
+
+\hypertarget{derivation}{%
+\subsubsection{Derivation:}\label{derivation}}
+
+From the table above,
+
+\begin{itemize}
+\tightlist
+\item
+  {[}a{]} is generally false, see for example `0 vs all'
+\item
+  {[}b{]} is generally false, see for example `1 vs all'
+\item
+  {[}c{]} is generally false, see for example `5 vs all'
+\item
+  {[}d{]} is generally false, see for example `0 vs all'
+\item
+  {[}e{]} is correct,
+  \(E^{trans}_{out}({\rm 5\; vs\; all})/E_{out}({\rm 5\; vs\; all})\simeq 0.99\):
+  the transform improves the out-of-sample performance by 1\%.
+\end{itemize}
+
+    \hypertarget{problem-10}{%
+\subsection{Problem 10}\label{problem-10}}
+
+\hypertarget{answer-a-overfitting-occurs-from-lambda1-to-lambda0.01}{%
+\subsubsection{\texorpdfstring{Answer: {[}a{]} Overfitting occurs (from
+\(\lambda=1\) to
+\(\lambda=0.01\))}{Answer: {[}a{]} Overfitting occurs (from \textbackslash{}lambda=1 to \textbackslash{}lambda=0.01)}}\label{answer-a-overfitting-occurs-from-lambda1-to-lambda0.01}}
+
+\hypertarget{derivationcode}{%
+\subsubsection{Derivation\&Code:}\label{derivationcode}}
+
+From the results below, it is clear that from \(\lambda=1\) to
+\(\lambda=0.01\) overfitting occurs, since \(E_{in}\) is decreasing
+while \(E_{out}\) is increasing.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{2}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{z\PYZus{}train} \PY{o}{=} \PY{n}{transform}\PY{p}{(}\PY{n}{train\PYZus{}pts}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{logical\PYZus{}or}\PY{p}{(}\PY{n}{train\PYZus{}y}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{train\PYZus{}y}\PY{o}{==}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{,} \PY{p}{:}\PY{p}{]}\PY{p}{)}
+\PY{n}{z\PYZus{}test} \PY{o}{=} \PY{n}{transform}\PY{p}{(}\PY{n}{test\PYZus{}pts}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{logical\PYZus{}or}\PY{p}{(}\PY{n}{test\PYZus{}y}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{test\PYZus{}y}\PY{o}{==}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{,} \PY{p}{:}\PY{p}{]}\PY{p}{)}
+
+\PY{n}{y\PYZus{}train} \PY{o}{=} \PY{n}{label\PYZus{}n}\PY{p}{(}\PY{n}{train\PYZus{}y}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{logical\PYZus{}or}\PY{p}{(}\PY{n}{train\PYZus{}y}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{train\PYZus{}y}\PY{o}{==}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+\PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{label\PYZus{}n}\PY{p}{(}\PY{n}{test\PYZus{}y}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{logical\PYZus{}or}\PY{p}{(}\PY{n}{test\PYZus{}y}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{test\PYZus{}y}\PY{o}{==}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+
+
+\PY{n}{lam}\PY{o}{=}\PY{p}{[}\PY{l+m+mf}{0.01}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}
+
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{RESULTS FOR 1 VS 5}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{lam}\PY{p}{:}
+    \PY{n}{Ein\PYZus{}tmp}\PY{p}{,}\PY{n}{Eout\PYZus{}tmp}\PY{o}{=}\PY{n}{lin\PYZus{}reg\PYZus{}wdecay}\PY{p}{(}\PY{n}{z\PYZus{}train}\PY{p}{,}\PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{z\PYZus{}test}\PY{p}{,}\PY{n}{y\PYZus{}test}\PY{p}{,}\PY{n}{lam}\PY{o}{=}\PY{n}{i}\PY{p}{,}\PY{n}{res}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+    \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{For lambda=}\PY{l+s+si}{\PYZob{}i:.2f\PYZcb{}}\PY{l+s+s1}{, Ein=}\PY{l+s+si}{\PYZob{}Ein\PYZus{}tmp:.3f\PYZcb{}}\PY{l+s+s1}{ and Eout=}\PY{l+s+si}{\PYZob{}Eout\PYZus{}tmp:.3f\PYZcb{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+RESULTS FOR 1 VS 5
+
+For lambda=0.01, Ein=0.004 and Eout=0.028
+
+For lambda=1.00, Ein=0.005 and Eout=0.026
+
+    \end{Verbatim}
+
+    \hypertarget{support-vector-machines}{%
+\section{Support Vector Machines}\label{support-vector-machines}}
+
+\hypertarget{problem-11}{%
+\subsection{Problem 11}\label{problem-11}}
+
+\hypertarget{answer-c-10-0.5}{%
+\subsubsection{\texorpdfstring{Answer: {[}c{]}
+\(1,0,-0.5\)}{Answer: {[}c{]} 1,0,-0.5}}\label{answer-c-10-0.5}}
+
+\hypertarget{derivationcode}{%
+\subsubsection{Derivation\&Code:}\label{derivationcode}}
+
+As it can be inferred by the plot below, the only line that correctly
+separates the points is given by the parameters in answer {[}c{]}. We
+can simply show that this maximize the margin using geometry. Indeed,
+the closest (transformed) points to the plane are
+\(z_2=\phi(x_2)=(0,-1), \,z_3=\phi(x_3)=(0,3),\, z_4=\phi(x_4)=(1,2)\).
+\(z_2\) and \(z_3\) are labelled with \(-1\) while \(z_4\) with \(+1\).
+The distance to the plane is given by
+
+\begin{equation}
+d(z_i,w,b)=\frac{1}{||\mathbf{w}||}|\mathbf{w}\cdot(\mathbf{z}_i-\mathbf{x})|
+\end{equation}
+
+where \(\mathbf{x}=(0.5,y)\) is a generic point on the plane (with
+\(y\in\mathbb{R}\)) and \(||\mathbf{w}||=1\) is the Euclidean norm of
+the weights vector.
+
+Computing explicitly the distances of the points from the plane, we
+find:
+
+\begin{equation}
+d(z_2)=d(z_3)=d(z_4)=0.5\,.
+\end{equation}
+
+Since the plane is equidistant from two points (e.g. \(z_2\) and
+\(z_4\)) that belongs to two different classification, it has the
+fattest margin of separation.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{3}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{o}{\PYZpc{}}\PY{k}{reset} \PYZhy{}f
+
+\PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+\PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+
+\PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+\PY{n}{y} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+
+\PY{k}{def} \PY{n+nf}{color\PYZus{}pts}\PY{p}{(}\PY{n}{y}\PY{p}{)}\PY{p}{:}
+    \PY{c+c1}{\PYZsh{}green is +1, red is \PYZhy{}1}
+    \PY{n}{col}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+    \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{y}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+        \PY{k}{if}\PY{p}{(}\PY{n}{y}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:} \PY{n}{col}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{green}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{k}{else}\PY{p}{:} \PY{n}{col}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+    \PY{k}{return} \PY{n}{col}
+
+\PY{k}{def} \PY{n+nf}{plot\PYZus{}pts}\PY{p}{(}\PY{n}{pts}\PY{p}{,}\PY{n}{y}\PY{p}{)}\PY{p}{:}
+    \PY{n}{col}\PY{o}{=}\PY{n}{color\PYZus{}pts}\PY{p}{(}\PY{n}{y}\PY{p}{)}
+    \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{pts}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{pts}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{n}{col}\PY{p}{)}
+
+\PY{k}{def} \PY{n+nf}{transform}\PY{p}{(}\PY{n}{pts}\PY{p}{)}\PY{p}{:}
+    \PY{n}{res}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+    \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{pts}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+        \PY{n}{x1}\PY{o}{=}\PY{n}{pts}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+        \PY{n}{x2}\PY{o}{=}\PY{n}{pts}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+        \PY{n}{res}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{[}\PY{n}{x2}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{x1}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{x1}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{x2}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+    \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{res}\PY{p}{)}
+
+\PY{k}{def} \PY{n+nf}{line}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{w}\PY{p}{,}\PY{n}{b}\PY{p}{)}\PY{p}{:}
+    \PY{k}{if}\PY{p}{(}\PY{n}{w}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:}
+        \PY{k}{return} \PY{o}{\PYZhy{}}\PY{n}{b}\PY{o}{/}\PY{n}{w}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+    \PY{k}{else}\PY{p}{:}    
+        \PY{k}{return} \PY{o}{\PYZhy{}}\PY{n}{w}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{/}\PY{n}{w}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{*}\PY{n}{x}\PY{o}{\PYZhy{}}\PY{n}{b}\PY{o}{/}\PY{n}{w}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+    
+\PY{n}{w1}\PY{o}{=}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}
+\PY{n}{w2}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+\PY{n}{w3}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}
+\PY{n}{w4}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}
+\PY{n}{b}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.5}
+
+\PY{n}{z}\PY{o}{=}\PY{n}{transform}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+\PY{n}{xaxis}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{)}
+\PY{n}{yaxis}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{)}
+
+\PY{n}{w1line}\PY{o}{=}\PY{p}{[}\PY{n}{line}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{w1}\PY{p}{,}\PY{n}{b}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{xaxis}\PY{p}{]}
+\PY{n}{w2line}\PY{o}{=}\PY{p}{[}\PY{n}{line}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{w2}\PY{p}{,}\PY{n}{b}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{xaxis}\PY{p}{]}
+\PY{n}{w3line}\PY{o}{=}\PY{p}{[}\PY{n}{line}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{w3}\PY{p}{,}\PY{n}{b}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{xaxis}\PY{p}{]}
+\PY{n}{w4line}\PY{o}{=}\PY{p}{[}\PY{n}{line}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{w4}\PY{p}{,}\PY{n}{b}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{xaxis}\PY{p}{]}
+
+\PY{n}{plot\PYZus{}pts}\PY{p}{(}\PY{n}{z}\PY{p}{,}\PY{n}{y}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{xaxis}\PY{p}{,} \PY{n}{w1line}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{[a]}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{xaxis}\PY{p}{,} \PY{n}{w2line}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{[b]}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{w3line}\PY{p}{,}\PY{n}{yaxis}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{[c]}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{xaxis}\PY{p}{,} \PY{n}{w4line}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{[d]}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_13_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{problem-12}{%
+\subsection{Problem 12}\label{problem-12}}
+
+\hypertarget{answer-c-4-5}{%
+\subsubsection{\texorpdfstring{Answer: {[}c{]}
+\(4-5\)}{Answer: {[}c{]} 4-5}}\label{answer-c-4-5}}
+
+\hypertarget{code}{%
+\subsubsection{Code:}\label{code}}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{4}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{svm}
+
+\PY{n}{clf} \PY{o}{=} \PY{n}{svm}\PY{o}{.}\PY{n}{SVC}\PY{p}{(}\PY{n}{C}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{Inf}\PY{p}{,} \PY{n}{kernel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{poly}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{degree}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{coef0}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{gamma}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+\PY{n}{clf}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+\PY{n}{gin}\PY{o}{=}\PY{n}{clf}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+\PY{n}{testgin}\PY{o}{=}\PY{p}{(}\PY{n}{gin}\PY{o}{==}\PY{n}{y}\PY{p}{)}
+\PY{n}{Ein}\PY{o}{=}\PY{n+nb}{len}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{where}\PY{p}{(}\PY{n}{testgin}\PY{o}{==}\PY{k+kc}{False}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{o}{/}\PY{n+nb}{len}\PY{p}{(}\PY{n}{y}\PY{p}{)}
+
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Support vectors found: }\PY{l+s+si}{\PYZob{}clf.support\PYZus{}vectors\PYZus{}.shape[0]\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{E\PYZus{}in=}\PY{l+s+si}{\PYZob{}Ein\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Support vectors found: 5
+E\_in=0.0
+    \end{Verbatim}
+
+    \hypertarget{radial-basis-functions}{%
+\section{Radial Basis Functions}\label{radial-basis-functions}}
+
+\hypertarget{preliminary-code}{%
+\subsection{Preliminary Code}\label{preliminary-code}}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{5}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{o}{\PYZpc{}}\PY{k}{reset} \PYZhy{}f
+
+\PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+\PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+\PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{svm}
+\PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{cluster} \PY{k}{import} \PY{n}{KMeans}
+
+\PY{c+c1}{\PYZsh{}Generate and Plot Data\PYZhy{}Points}
+
+\PY{k}{def} \PY{n+nf}{color\PYZus{}pts}\PY{p}{(}\PY{n}{y}\PY{p}{)}\PY{p}{:}
+    \PY{c+c1}{\PYZsh{}green is +1, red is \PYZhy{}1}
+    \PY{n}{col}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+    \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{y}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+        \PY{k}{if}\PY{p}{(}\PY{n}{y}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:} \PY{n}{col}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{green}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{k}{else}\PY{p}{:} \PY{n}{col}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+    \PY{k}{return} \PY{n}{col}
+
+\PY{k}{def} \PY{n+nf}{plot\PYZus{}pts}\PY{p}{(}\PY{n}{pts}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{size}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{:}
+    \PY{n}{col}\PY{o}{=}\PY{n}{color\PYZus{}pts}\PY{p}{(}\PY{n}{y}\PY{p}{)}
+    \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{pts}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{pts}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{n}{col}\PY{p}{,}\PY{n}{marker}\PY{o}{=}\PY{n}{marker}\PY{p}{,}\PY{n}{s}\PY{o}{=}\PY{n}{size}\PY{p}{)}
+
+\PY{k}{def} \PY{n+nf}{gen\PYZus{}uniform\PYZus{}points}\PY{p}{(}\PY{n}{N}\PY{p}{,}\PY{n}{d}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,}\PY{n}{vmin}\PY{o}{=}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{vmax}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+    \PY{k}{if}\PY{p}{(}\PY{n}{d}\PY{o}{!=}\PY{n+nb}{len}\PY{p}{(}\PY{n}{vmin}\PY{p}{)}\PY{o}{|}\PY{n}{d}\PY{o}{!=}\PY{n+nb}{len}\PY{p}{(}\PY{n}{vmax}\PY{p}{)}\PY{p}{)}\PY{p}{:} 
+        \PY{k}{raise} \PY{n+ne}{Exception}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{WARNING: Boundary values do not match the dimensionality of the problem!}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+    \PY{n}{pts}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{uniform}\PY{p}{(}\PY{n}{low}\PY{o}{=}\PY{n}{vmin}\PY{p}{,}\PY{n}{high}\PY{o}{=}\PY{n}{vmax}\PY{p}{,}\PY{n}{size}\PY{o}{=}\PY{p}{(}\PY{n}{N}\PY{p}{,}\PY{n}{d}\PY{p}{)}\PY{p}{)}
+    \PY{k}{return} \PY{n}{pts}
+
+\PY{k}{def} \PY{n+nf}{f}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+    \PY{k}{return} \PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{+}\PY{l+m+mf}{0.25}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{o}{*}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+
+\PY{k}{def} \PY{n+nf}{label\PYZus{}f}\PY{p}{(}\PY{n}{pts}\PY{p}{,}\PY{n}{f}\PY{p}{)}\PY{p}{:}
+    \PY{n}{y}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+    \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{pts}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+        \PY{n}{y}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sign}\PY{p}{(}\PY{n}{f}\PY{p}{(}\PY{n}{pts}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+    \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{y}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{}HardSVM algo}
+
+\PY{k}{def} \PY{n+nf}{HardSVM\PYZus{}rbf}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{n}{gamma}\PY{p}{,}\PY{n}{Nval}\PY{o}{=}\PY{l+m+mi}{1000}\PY{p}{)}\PY{p}{:}
+    \PY{n}{clf} \PY{o}{=} \PY{n}{svm}\PY{o}{.}\PY{n}{SVC}\PY{p}{(}\PY{n}{C}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{Inf}\PY{p}{,}\PY{n}{kernel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rbf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{gamma}\PY{o}{=}\PY{n}{gamma}\PY{p}{)}
+    \PY{n}{clf}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+    \PY{n}{svs}\PY{o}{=}\PY{n}{clf}\PY{o}{.}\PY{n}{support\PYZus{}vectors\PYZus{}}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+    
+    \PY{c+c1}{\PYZsh{}Ein computation}
+    \PY{n}{gin}\PY{o}{=}\PY{n}{clf}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+    \PY{n}{testgin}\PY{o}{=}\PY{p}{(}\PY{n}{gin}\PY{o}{==}\PY{n}{y}\PY{p}{)}
+    \PY{n}{Ein}\PY{o}{=}\PY{n+nb}{len}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{where}\PY{p}{(}\PY{n}{testgin}\PY{o}{==}\PY{k+kc}{False}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{o}{/}\PY{n+nb}{len}\PY{p}{(}\PY{n}{y}\PY{p}{)}
+    
+    \PY{c+c1}{\PYZsh{}Eout computation}
+    \PY{n}{val\PYZus{}pts}\PY{o}{=}\PY{n}{gen\PYZus{}uniform\PYZus{}points}\PY{p}{(}\PY{n}{Nval}\PY{p}{)}
+    \PY{n}{y\PYZus{}val}\PY{o}{=}\PY{n}{label\PYZus{}f}\PY{p}{(}\PY{n}{val\PYZus{}pts}\PY{p}{,}\PY{n}{f}\PY{p}{)}
+    \PY{n}{gout}\PY{o}{=}\PY{n}{clf}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{val\PYZus{}pts}\PY{p}{)}
+    \PY{n}{testgout}\PY{o}{=}\PY{p}{(}\PY{n}{gout}\PY{o}{==}\PY{n}{y\PYZus{}val}\PY{p}{)}
+    \PY{n}{Eout}\PY{o}{=}\PY{n+nb}{len}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{where}\PY{p}{(}\PY{n}{testgout}\PY{o}{==}\PY{k+kc}{False}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{o}{/}\PY{n+nb}{len}\PY{p}{(}\PY{n}{y\PYZus{}val}\PY{p}{)}
+    
+    \PY{k}{return} \PY{n}{Ein}\PY{p}{,}\PY{n}{Eout}
+
+\PY{c+c1}{\PYZsh{}Regular RBF}
+
+\PY{k}{def} \PY{n+nf}{phi}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{mu}\PY{p}{,}\PY{n}{gamma}\PY{p}{)}\PY{p}{:}
+    \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{gamma}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{(}\PY{n}{x}\PY{o}{\PYZhy{}}\PY{n}{mu}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+
+\PY{k}{def} \PY{n+nf}{Z\PYZus{}rbf}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{center}\PY{p}{,}\PY{n}{gamma}\PY{p}{)}\PY{p}{:}
+    \PY{n}{exp}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{n}{phi}\PY{p}{(}\PY{n}{i}\PY{p}{,}\PY{n}{j}\PY{p}{,}\PY{n}{gamma}\PY{p}{)} \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n}{center}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{x}\PY{p}{]}\PY{p}{)}
+    \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{newaxis}\PY{p}{]}\PY{p}{,} \PY{n}{exp}\PY{p}{)}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+
+\PY{k}{def} \PY{n+nf}{RBF}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{n}{gamma}\PY{p}{,}\PY{n}{k}\PY{p}{,}\PY{n}{plot\PYZus{}cent}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,}\PY{n}{Nval}\PY{o}{=}\PY{l+m+mi}{1000}\PY{p}{)}\PY{p}{:}
+    \PY{n}{center}\PY{o}{=}\PY{n}{KMeans}\PY{p}{(}\PY{n}{n\PYZus{}clusters}\PY{o}{=}\PY{n}{k}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{o}{.}\PY{n}{cluster\PYZus{}centers\PYZus{}}
+    \PY{n}{y\PYZus{}center}\PY{o}{=}\PY{n}{label\PYZus{}f}\PY{p}{(}\PY{n}{center}\PY{p}{,}\PY{n}{f}\PY{p}{)}
+    \PY{k}{if}\PY{p}{(}\PY{n}{plot\PYZus{}cent}\PY{o}{==}\PY{k+kc}{True}\PY{p}{)}\PY{p}{:}
+        \PY{n}{plot\PYZus{}pts}\PY{p}{(}\PY{n}{center}\PY{p}{,}\PY{n}{y\PYZus{}center}\PY{p}{,}\PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{X}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{size}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{)}
+    
+    \PY{n}{Z}\PY{o}{=}\PY{n}{Z\PYZus{}rbf}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{center}\PY{p}{,}\PY{n}{gamma}\PY{p}{)}
+    
+    \PY{n}{w}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{pinv}\PY{p}{(}\PY{n}{Z}\PY{p}{)}\PY{p}{,}\PY{n}{y}\PY{p}{)}
+    
+    \PY{c+c1}{\PYZsh{}Ein}
+    \PY{n}{gin}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{sign}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{Z}\PY{p}{,}\PY{n}{w}\PY{p}{)}\PY{p}{)}
+    \PY{n}{testgin}\PY{o}{=}\PY{p}{(}\PY{n}{gin}\PY{o}{==}\PY{n}{y}\PY{p}{)}
+    \PY{n}{Ein}\PY{o}{=}\PY{n+nb}{len}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{where}\PY{p}{(}\PY{n}{testgin}\PY{o}{==}\PY{k+kc}{False}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{o}{/}\PY{n+nb}{len}\PY{p}{(}\PY{n}{y}\PY{p}{)}
+    
+    \PY{c+c1}{\PYZsh{}Eout}
+    \PY{n}{val\PYZus{}pts}\PY{o}{=}\PY{n}{gen\PYZus{}uniform\PYZus{}points}\PY{p}{(}\PY{n}{Nval}\PY{p}{)}
+    \PY{n}{Z\PYZus{}val}\PY{o}{=}\PY{n}{Z\PYZus{}rbf}\PY{p}{(}\PY{n}{val\PYZus{}pts}\PY{p}{,}\PY{n}{center}\PY{p}{,}\PY{n}{gamma}\PY{p}{)}
+    \PY{n}{y\PYZus{}val}\PY{o}{=}\PY{n}{label\PYZus{}f}\PY{p}{(}\PY{n}{val\PYZus{}pts}\PY{p}{,}\PY{n}{f}\PY{p}{)}
+    \PY{n}{gout}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{sign}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{Z\PYZus{}val}\PY{p}{,}\PY{n}{w}\PY{p}{)}\PY{p}{)}
+    \PY{n}{testgout}\PY{o}{=}\PY{p}{(}\PY{n}{gout}\PY{o}{==}\PY{n}{y\PYZus{}val}\PY{p}{)}
+    \PY{n}{Eout}\PY{o}{=}\PY{n+nb}{len}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{where}\PY{p}{(}\PY{n}{testgout}\PY{o}{==}\PY{k+kc}{False}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{o}{/}\PY{n+nb}{len}\PY{p}{(}\PY{n}{y\PYZus{}val}\PY{p}{)}
+    
+    \PY{k}{return} \PY{n}{Ein}\PY{p}{,}\PY{n}{Eout}
+
+\PY{c+c1}{\PYZsh{}Plotted Example with regular RBF: the crosses are the centers of the clusters found via Lloyd algorithm}
+
+\PY{n}{pts}\PY{o}{=}\PY{n}{gen\PYZus{}uniform\PYZus{}points}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{)}
+\PY{n}{y}\PY{o}{=}\PY{n}{label\PYZus{}f}\PY{p}{(}\PY{n}{pts}\PY{p}{,}\PY{n}{f}\PY{p}{)}
+\PY{n}{plot\PYZus{}pts}\PY{p}{(}\PY{n}{pts}\PY{p}{,}\PY{n}{y}\PY{p}{)}
+\PY{n}{res}\PY{o}{=}\PY{n}{RBF}\PY{p}{(}\PY{n}{pts}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{l+m+mf}{1.5}\PY{p}{,}\PY{l+m+mi}{9}\PY{p}{,}\PY{n}{plot\PYZus{}cent}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}\PY{n}{Nval}\PY{o}{=}\PY{l+m+mi}{1000}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{problems-13-14}{%
+\subsection{Problems 13-14}\label{problems-13-14}}
+
+\hypertarget{answers-a-le-5-of-the-time-e-ge-75-of-the-time}{%
+\subsubsection{\texorpdfstring{Answers: {[}a{]} \(\le 5\%\) of the time,
+{[}e{]} \(\ge 75\%\) of the
+time}{Answers: {[}a{]} \textbackslash{}le 5\textbackslash{}\% of the time, {[}e{]} \textbackslash{}ge 75\textbackslash{}\% of the time}}\label{answers-a-le-5-of-the-time-e-ge-75-of-the-time}}
+
+\hypertarget{code}{%
+\subsubsection{Code:}\label{code}}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{6}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{Nruns}\PY{o}{=}\PY{l+m+mi}{100}
+\PY{n}{Npts}\PY{o}{=}\PY{l+m+mi}{100}
+\PY{n}{gamma}\PY{o}{=}\PY{l+m+mf}{1.5}
+\PY{n}{k}\PY{o}{=}\PY{l+m+mi}{9}
+\PY{n}{counter\PYZus{}p13}\PY{o}{=}\PY{l+m+mi}{0}
+\PY{n}{counter\PYZus{}p14}\PY{o}{=}\PY{l+m+mi}{0} 
+
+\PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{Nruns}\PY{p}{)}\PY{p}{:}
+    \PY{n}{pts}\PY{o}{=}\PY{n}{gen\PYZus{}uniform\PYZus{}points}\PY{p}{(}\PY{n}{Npts}\PY{p}{)}
+    \PY{n}{y}\PY{o}{=}\PY{n}{label\PYZus{}f}\PY{p}{(}\PY{n}{pts}\PY{p}{,}\PY{n}{f}\PY{p}{)}
+    \PY{n}{EinSVM}\PY{p}{,}\PY{n}{EoutSVM}\PY{o}{=}\PY{n}{HardSVM\PYZus{}rbf}\PY{p}{(}\PY{n}{pts}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{n}{gamma}\PY{p}{)}
+    \PY{n}{EinRBF}\PY{p}{,}\PY{n}{EoutRBF}\PY{o}{=}\PY{n}{RBF}\PY{p}{(}\PY{n}{pts}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{n}{gamma}\PY{p}{,}\PY{n}{k}\PY{p}{)}
+    \PY{k}{if}\PY{p}{(}\PY{n}{EinSVM}\PY{o}{!=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:} \PY{n}{counter\PYZus{}p13}\PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}
+    \PY{k}{if}\PY{p}{(}\PY{n}{EoutSVM}\PY{o}{\PYZlt{}}\PY{n}{EoutRBF}\PY{p}{)}\PY{p}{:} \PY{n}{counter\PYZus{}p14}\PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}
+        
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Problem 13:}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{Out of Nruns=}\PY{l+s+si}{\PYZob{}Nruns\PYZcb{}}\PY{l+s+s1}{, the datasets are not separable }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{(using hard\PYZhy{}margin SVM) }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{counter\PYZus{}p13/Nruns*100:.0f\PYZcb{}}\PY{l+s+si}{\PYZpc{} o}\PY{l+s+s1}{f the time.}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Problem 14:}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{Out of Nruns=}\PY{l+s+si}{\PYZob{}Nruns\PYZcb{}}\PY{l+s+s1}{, kernel beats regular RBF (gamma=}\PY{l+s+si}{\PYZob{}gamma\PYZcb{}}\PY{l+s+s1}{ and k=}\PY{l+s+si}{\PYZob{}k\PYZcb{}}\PY{l+s+s1}{) }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{counter\PYZus{}p14/Nruns*100:.0f\PYZcb{}}\PY{l+s+si}{\PYZpc{} o}\PY{l+s+s1}{f the time.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Problem 13:
+Out of Nruns=100, the datasets are not separable
+(using hard-margin SVM) 0\% of the time.
+
+Problem 14:
+Out of Nruns=100, kernel beats regular RBF (gamma=1.5 and k=9)
+81\% of the time.
+    \end{Verbatim}
+
+    \hypertarget{problem-15}{%
+\subsection{Problem 15}\label{problem-15}}
+
+\hypertarget{answer-d-60-but-le-90-of-the-time}{%
+\subsubsection{\texorpdfstring{Answer: {[}d{]} \(> 60\%\) but
+\(\le 90\%\) of the
+time}{Answer: {[}d{]} \textgreater{} 60\textbackslash{}\% but \textbackslash{}le 90\textbackslash{}\% of the time}}\label{answer-d-60-but-le-90-of-the-time}}
+
+\hypertarget{code}{%
+\subsubsection{Code:}\label{code}}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{7}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{Nruns}\PY{o}{=}\PY{l+m+mi}{100}
+\PY{n}{Npts}\PY{o}{=}\PY{l+m+mi}{100}
+\PY{n}{gamma}\PY{o}{=}\PY{l+m+mf}{1.5}
+\PY{n}{k}\PY{o}{=}\PY{l+m+mi}{12}
+\PY{n}{counter\PYZus{}p15}\PY{o}{=}\PY{l+m+mi}{0}
+
+\PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{Nruns}\PY{p}{)}\PY{p}{:}
+    \PY{n}{pts}\PY{o}{=}\PY{n}{gen\PYZus{}uniform\PYZus{}points}\PY{p}{(}\PY{n}{Npts}\PY{p}{)}
+    \PY{n}{y}\PY{o}{=}\PY{n}{label\PYZus{}f}\PY{p}{(}\PY{n}{pts}\PY{p}{,}\PY{n}{f}\PY{p}{)}
+    \PY{n}{EinSVM}\PY{p}{,}\PY{n}{EoutSVM}\PY{o}{=}\PY{n}{HardSVM\PYZus{}rbf}\PY{p}{(}\PY{n}{pts}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{n}{gamma}\PY{p}{)}
+    \PY{n}{EinRBF}\PY{p}{,}\PY{n}{EoutRBF}\PY{o}{=}\PY{n}{RBF}\PY{p}{(}\PY{n}{pts}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{n}{gamma}\PY{p}{,}\PY{n}{k}\PY{p}{)}
+    \PY{k}{if}\PY{p}{(}\PY{n}{EoutSVM}\PY{o}{\PYZlt{}}\PY{n}{EoutRBF}\PY{p}{)}\PY{p}{:} \PY{n}{counter\PYZus{}p15}\PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}
+        
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Problem 15:}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{Out of Nruns=}\PY{l+s+si}{\PYZob{}Nruns\PYZcb{}}\PY{l+s+s1}{, kernel beats regular RBF (gamma=}\PY{l+s+si}{\PYZob{}gamma\PYZcb{}}\PY{l+s+s1}{ and k=}\PY{l+s+si}{\PYZob{}k\PYZcb{}}\PY{l+s+s1}{) }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{counter\PYZus{}p15/Nruns*100:.0f\PYZcb{}}\PY{l+s+si}{\PYZpc{} o}\PY{l+s+s1}{f the time.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Problem 15:
+Out of Nruns=100, kernel beats regular RBF (gamma=1.5 and k=12)
+70\% of the time.
+    \end{Verbatim}
+
+    \hypertarget{problem-16}{%
+\subsection{Problem 16}\label{problem-16}}
+
+\hypertarget{answer-d-both-e_in-and-e_out-go-down}{%
+\subsubsection{\texorpdfstring{Answer: {[}d{]} Both \(E_{in}\) and
+\(E_{out}\) go
+down}{Answer: {[}d{]} Both E\_\{in\} and E\_\{out\} go down}}\label{answer-d-both-e_in-and-e_out-go-down}}
+
+\hypertarget{code}{%
+\subsubsection{Code:}\label{code}}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{8}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{}Problem 16}
+\PY{n}{Nruns}\PY{o}{=}\PY{l+m+mi}{100}
+\PY{n}{Npts}\PY{o}{=}\PY{l+m+mi}{100}
+\PY{n}{gamma}\PY{o}{=}\PY{l+m+mf}{1.5}
+\PY{n}{counter\PYZus{}p16}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+
+\PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{Nruns}\PY{p}{)}\PY{p}{:}
+    \PY{n}{pts}\PY{o}{=}\PY{n}{gen\PYZus{}uniform\PYZus{}points}\PY{p}{(}\PY{n}{Npts}\PY{p}{)}
+    \PY{n}{y}\PY{o}{=}\PY{n}{label\PYZus{}f}\PY{p}{(}\PY{n}{pts}\PY{p}{,}\PY{n}{f}\PY{p}{)}
+    \PY{n}{Ein\PYZus{}k9}\PY{p}{,}\PY{n}{Eout\PYZus{}k9}\PY{o}{=}\PY{n}{RBF}\PY{p}{(}\PY{n}{pts}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{n}{gamma}\PY{p}{,}\PY{l+m+mi}{9}\PY{p}{)}
+    \PY{n}{Ein\PYZus{}k12}\PY{p}{,}\PY{n}{Eout\PYZus{}k12}\PY{o}{=}\PY{n}{RBF}\PY{p}{(}\PY{n}{pts}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{n}{gamma}\PY{p}{,}\PY{l+m+mi}{12}\PY{p}{)}
+    \PY{k}{if}\PY{p}{(}\PY{p}{(}\PY{n}{Ein\PYZus{}k9}\PY{o}{\PYZgt{}}\PY{n}{Ein\PYZus{}k12}\PY{p}{)}\PY{o}{\PYZam{}}\PY{p}{(}\PY{n}{Eout\PYZus{}k9}\PY{o}{\PYZlt{}}\PY{n}{Eout\PYZus{}k12}\PY{p}{)}\PY{p}{)}\PY{p}{:} \PY{n}{counter\PYZus{}p16}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}
+    \PY{k}{if}\PY{p}{(}\PY{p}{(}\PY{n}{Ein\PYZus{}k9}\PY{o}{\PYZlt{}}\PY{n}{Ein\PYZus{}k12}\PY{p}{)}\PY{o}{\PYZam{}}\PY{p}{(}\PY{n}{Eout\PYZus{}k9}\PY{o}{\PYZgt{}}\PY{n}{Eout\PYZus{}k12}\PY{p}{)}\PY{p}{)}\PY{p}{:} \PY{n}{counter\PYZus{}p16}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}
+    \PY{k}{if}\PY{p}{(}\PY{p}{(}\PY{n}{Ein\PYZus{}k9}\PY{o}{\PYZlt{}}\PY{n}{Ein\PYZus{}k12}\PY{p}{)}\PY{o}{\PYZam{}}\PY{p}{(}\PY{n}{Eout\PYZus{}k9}\PY{o}{\PYZlt{}}\PY{n}{Eout\PYZus{}k12}\PY{p}{)}\PY{p}{)}\PY{p}{:} \PY{n}{counter\PYZus{}p16}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}
+    \PY{k}{if}\PY{p}{(}\PY{p}{(}\PY{n}{Ein\PYZus{}k9}\PY{o}{\PYZgt{}}\PY{n}{Ein\PYZus{}k12}\PY{p}{)}\PY{o}{\PYZam{}}\PY{p}{(}\PY{n}{Eout\PYZus{}k9}\PY{o}{\PYZgt{}}\PY{n}{Eout\PYZus{}k12}\PY{p}{)}\PY{p}{)}\PY{p}{:} \PY{n}{counter\PYZus{}p16}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}
+    \PY{k}{if}\PY{p}{(}\PY{p}{(}\PY{n}{Ein\PYZus{}k9}\PY{o}{==}\PY{n}{Ein\PYZus{}k12}\PY{p}{)}\PY{o}{\PYZam{}}\PY{p}{(}\PY{n}{Eout\PYZus{}k9}\PY{o}{==}\PY{n}{Eout\PYZus{}k12}\PY{p}{)}\PY{p}{)}\PY{p}{:} \PY{n}{counter\PYZus{}p16}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]}\PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}
+    
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Problem 16:}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{Out of Nruns=}\PY{l+s+si}{\PYZob{}Nruns\PYZcb{}}\PY{l+s+s1}{,}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{[a] Ein goes down, but Eout goes up }\PY{l+s+si}{\PYZob{}counter\PYZus{}p16[0]:.0f\PYZcb{}}\PY{l+s+s1}{ times}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{[b] Ein goes up, but Eout goes down }\PY{l+s+si}{\PYZob{}counter\PYZus{}p16[1]:.0f\PYZcb{}}\PY{l+s+s1}{ times}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{[c] Both Ein and Eout go up }\PY{l+s+si}{\PYZob{}counter\PYZus{}p16[2]:.0f\PYZcb{}}\PY{l+s+s1}{ times}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{[d] Both Ein and Eout go down }\PY{l+s+si}{\PYZob{}counter\PYZus{}p16[3]:.0f\PYZcb{}}\PY{l+s+s1}{ times}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{[e] Ein and Eout remain the same }\PY{l+s+si}{\PYZob{}counter\PYZus{}p16[4]:.0f\PYZcb{}}\PY{l+s+s1}{ times.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Problem 16:
+Out of Nruns=100,
+[a] Ein goes down, but Eout goes up 16 times
+[b] Ein goes up, but Eout goes down 3 times
+[c] Both Ein and Eout go up 7 times
+[d] Both Ein and Eout go down 34 times
+[e] Ein and Eout remain the same 0 times.
+    \end{Verbatim}
+
+    \hypertarget{problem-17}{%
+\subsection{Problem 17}\label{problem-17}}
+
+\hypertarget{answer-c-both-e_in-and-e_out-go-up}{%
+\subsubsection{\texorpdfstring{Answer: {[}c{]} Both \(E_{in}\) and
+\(E_{out}\) go
+up}{Answer: {[}c{]} Both E\_\{in\} and E\_\{out\} go up}}\label{answer-c-both-e_in-and-e_out-go-up}}
+
+\hypertarget{code}{%
+\subsubsection{Code:}\label{code}}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{9}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{Nruns}\PY{o}{=}\PY{l+m+mi}{100}
+\PY{n}{Npts}\PY{o}{=}\PY{l+m+mi}{100}
+\PY{n}{k}\PY{o}{=}\PY{l+m+mi}{9}
+\PY{n}{counter\PYZus{}p17}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+
+\PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{Nruns}\PY{p}{)}\PY{p}{:}
+    \PY{n}{pts}\PY{o}{=}\PY{n}{gen\PYZus{}uniform\PYZus{}points}\PY{p}{(}\PY{n}{Npts}\PY{p}{)}
+    \PY{n}{y}\PY{o}{=}\PY{n}{label\PYZus{}f}\PY{p}{(}\PY{n}{pts}\PY{p}{,}\PY{n}{f}\PY{p}{)}
+    \PY{n}{Ein\PYZus{}g1}\PY{p}{,}\PY{n}{Eout\PYZus{}g1}\PY{o}{=}\PY{n}{RBF}\PY{p}{(}\PY{n}{pts}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{l+m+mf}{1.5}\PY{p}{,}\PY{n}{k}\PY{p}{)}
+    \PY{n}{Ein\PYZus{}g2}\PY{p}{,}\PY{n}{Eout\PYZus{}g2}\PY{o}{=}\PY{n}{RBF}\PY{p}{(}\PY{n}{pts}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{n}{k}\PY{p}{)}
+    \PY{k}{if}\PY{p}{(}\PY{p}{(}\PY{n}{Ein\PYZus{}g1}\PY{o}{\PYZgt{}}\PY{n}{Ein\PYZus{}g2}\PY{p}{)}\PY{o}{\PYZam{}}\PY{p}{(}\PY{n}{Eout\PYZus{}g1}\PY{o}{\PYZlt{}}\PY{n}{Eout\PYZus{}g2}\PY{p}{)}\PY{p}{)}\PY{p}{:} \PY{n}{counter\PYZus{}p17}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}
+    \PY{k}{if}\PY{p}{(}\PY{p}{(}\PY{n}{Ein\PYZus{}g1}\PY{o}{\PYZlt{}}\PY{n}{Ein\PYZus{}g2}\PY{p}{)}\PY{o}{\PYZam{}}\PY{p}{(}\PY{n}{Eout\PYZus{}g1}\PY{o}{\PYZgt{}}\PY{n}{Eout\PYZus{}g2}\PY{p}{)}\PY{p}{)}\PY{p}{:} \PY{n}{counter\PYZus{}p17}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}
+    \PY{k}{if}\PY{p}{(}\PY{p}{(}\PY{n}{Ein\PYZus{}g1}\PY{o}{\PYZlt{}}\PY{n}{Ein\PYZus{}g2}\PY{p}{)}\PY{o}{\PYZam{}}\PY{p}{(}\PY{n}{Eout\PYZus{}g1}\PY{o}{\PYZlt{}}\PY{n}{Eout\PYZus{}g2}\PY{p}{)}\PY{p}{)}\PY{p}{:} \PY{n}{counter\PYZus{}p17}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}
+    \PY{k}{if}\PY{p}{(}\PY{p}{(}\PY{n}{Ein\PYZus{}g1}\PY{o}{\PYZgt{}}\PY{n}{Ein\PYZus{}g2}\PY{p}{)}\PY{o}{\PYZam{}}\PY{p}{(}\PY{n}{Eout\PYZus{}g1}\PY{o}{\PYZgt{}}\PY{n}{Eout\PYZus{}g2}\PY{p}{)}\PY{p}{)}\PY{p}{:} \PY{n}{counter\PYZus{}p17}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}
+    \PY{k}{if}\PY{p}{(}\PY{p}{(}\PY{n}{Ein\PYZus{}g1}\PY{o}{==}\PY{n}{Ein\PYZus{}g2}\PY{p}{)}\PY{o}{\PYZam{}}\PY{p}{(}\PY{n}{Eout\PYZus{}g1}\PY{o}{==}\PY{n}{Eout\PYZus{}g2}\PY{p}{)}\PY{p}{)}\PY{p}{:} \PY{n}{counter\PYZus{}p17}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]}\PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}
+              
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Problem 17:}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{Out of Nruns=}\PY{l+s+si}{\PYZob{}Nruns\PYZcb{}}\PY{l+s+s1}{,}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{[a] Ein goes down, but Eout goes up }\PY{l+s+si}{\PYZob{}counter\PYZus{}p17[0]:.0f\PYZcb{}}\PY{l+s+s1}{ times}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{[b] Ein goes up, but Eout goes down }\PY{l+s+si}{\PYZob{}counter\PYZus{}p17[1]:.0f\PYZcb{}}\PY{l+s+s1}{ times}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{[c] Both Ein and Eout go up }\PY{l+s+si}{\PYZob{}counter\PYZus{}p17[2]:.0f\PYZcb{}}\PY{l+s+s1}{ times}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{[d] Both Ein and Eout go down }\PY{l+s+si}{\PYZob{}counter\PYZus{}p17[3]:.0f\PYZcb{}}\PY{l+s+s1}{ times}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{[e] Ein and Eout remain the same }\PY{l+s+si}{\PYZob{}counter\PYZus{}p17[4]:.0f\PYZcb{}}\PY{l+s+s1}{ times.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Problem 17:
+Out of Nruns=100,
+[a] Ein goes down, but Eout goes up 5 times
+[b] Ein goes up, but Eout goes down 14 times
+[c] Both Ein and Eout go up 21 times
+[d] Both Ein and Eout go down 9 times
+[e] Ein and Eout remain the same 1 times.
+    \end{Verbatim}
+
+    \hypertarget{problem-18}{%
+\subsection{Problem 18}\label{problem-18}}
+
+\hypertarget{answer-a-le-10-of-the-time}{%
+\subsubsection{\texorpdfstring{Answer: {[}a{]} \(\le 10 \%\) of the
+time}{Answer: {[}a{]} \textbackslash{}le 10 \textbackslash{}\% of the time}}\label{answer-a-le-10-of-the-time}}
+
+\hypertarget{code}{%
+\subsubsection{Code:}\label{code}}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{10}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{Nruns}\PY{o}{=}\PY{l+m+mi}{100}
+\PY{n}{Npts}\PY{o}{=}\PY{l+m+mi}{100}
+\PY{n}{k}\PY{o}{=}\PY{l+m+mi}{9}
+\PY{n}{gamma}\PY{o}{=}\PY{l+m+mf}{1.5}
+\PY{n}{counter\PYZus{}p18}\PY{o}{=}\PY{l+m+mi}{0}
+
+\PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{Nruns}\PY{p}{)}\PY{p}{:}
+    \PY{n}{pts}\PY{o}{=}\PY{n}{gen\PYZus{}uniform\PYZus{}points}\PY{p}{(}\PY{n}{Npts}\PY{p}{)}
+    \PY{n}{y}\PY{o}{=}\PY{n}{label\PYZus{}f}\PY{p}{(}\PY{n}{pts}\PY{p}{,}\PY{n}{f}\PY{p}{)}
+    \PY{n}{Ein}\PY{p}{,}\PY{n}{Eout}\PY{o}{=}\PY{n}{RBF}\PY{p}{(}\PY{n}{pts}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{n}{gamma}\PY{p}{,}\PY{n}{k}\PY{p}{)}
+    \PY{k}{if}\PY{p}{(}\PY{n}{Ein}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:} \PY{n}{counter\PYZus{}p18}\PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}
+              
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Problem 18:}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{Out of Nruns=}\PY{l+s+si}{\PYZob{}Nruns\PYZcb{}}\PY{l+s+s1}{,}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{regular RBF achieves Ein=0 (with gamma=}\PY{l+s+si}{\PYZob{}gamma\PYZcb{}}\PY{l+s+s1}{ and k=}\PY{l+s+si}{\PYZob{}k\PYZcb{}}\PY{l+s+s1}{) }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{counter\PYZus{}p18/Nruns*100:.0f\PYZcb{}}\PY{l+s+si}{\PYZpc{} o}\PY{l+s+s1}{f the times}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Problem 18:
+Out of Nruns=100,
+regular RBF achieves Ein=0 (with gamma=1.5 and k=9) 7\% of the times
+    \end{Verbatim}
+
+    \hypertarget{bayesian-priors}{%
+\section{Bayesian Priors}\label{bayesian-priors}}
+
+\hypertarget{problem-19}{%
+\subsection{Problem 19}\label{problem-19}}
+
+\hypertarget{answer-b-the-posterior-increases-linearly-over-01.}{%
+\subsubsection{\texorpdfstring{Answer: {[}b{]} The posterior increases
+linearly over
+\([0,1]\).}{Answer: {[}b{]} The posterior increases linearly over {[}0,1{]}.}}\label{answer-b-the-posterior-increases-linearly-over-01.}}
+
+\hypertarget{derivation}{%
+\subsubsection{Derivation:}\label{derivation}}
+
+According to the Bayesian approach, the posterior, i.e.~the probability
+distribution \(\mathcal{P}(h=f|\mathcal{D})\) that the hypothesis \(h\)
+is equal to the target function \(f\) given the data \(\mathcal{D}\),
+can be related to the prior \(\mathcal{P}(h=f)\) and the likelihood
+\(\mathcal{P}(\mathcal{D}|h=f)\) up to a normalization constant as the
+following
+
+\begin{equation}
+\mathcal{P}(h=f|\mathcal{D})\propto \mathcal{P}(h=f) \mathcal{P}(\mathcal{D}|h=f)\,.
+\end{equation}
+
+In our specific example, we are choosing an (uninformative) uniform
+prior over the interval \([0,1]\), so that the probability density can
+be written as:
+
+\begin{equation}
+\mathcal{p}(h=f)|_{ {\rm\, over\,} [a=0,b=1]}= \frac{1}{b-a}=\frac{1}{1-0}=1\,,
+\end{equation}
+
+where \(d\mathcal{P}(x)=p(x)dx\). Since the event has a binary outcome
+(either a person had an heart attack or not), we can choose the
+likelihood to be the binomial distribution. Setting the (unknown)
+probability of getting an heart attack equal to \(h\), the probability
+that in a sample of \(N\) people, \(k\) of them have had an heart attack
+is equal to:
+
+\begin{equation}
+\mathcal{P}(N,k;h)= {N\choose k}h^k(1-h)^{N-k}\,.
+\end{equation}
+
+In our case \(N=k=1\), leading to \(\mathcal{P}(1,1;h)=h\), i.e.~the
+likelihood is equal to the probability of getting an heart attack.
+Finally, we have that
+
+\begin{equation}
+d\mathcal{P}(h=f|\mathcal{D};x)\propto h \,dx \,\rightarrow \mathcal{P}(h=f|\mathcal{D};x)=hx \,,
+\end{equation}
+
+where \(x\in[0,1]\), i.e.~the posterior probability that \(h=f\)
+increases linearly over \([0,1]\).
+
+    \hypertarget{aggregation}{%
+\section{Aggregation}\label{aggregation}}
+
+\hypertarget{problem-20}{%
+\subsection{Problem 20}\label{problem-20}}
+
+\hypertarget{answer-c-e_outg-cannot-be-worse-than-the-average-of-e_outg_1-and-e_outg_2.}{%
+\subsubsection{\texorpdfstring{Answer: {[}c{]} \(E_{out}(g)\) cannot be
+worse than the average of \(E_{out}(g_1)\) and
+\(E_{out}(g_2)\).}{Answer: {[}c{]} E\_\{out\}(g) cannot be worse than the average of E\_\{out\}(g\_1) and E\_\{out\}(g\_2).}}\label{answer-c-e_outg-cannot-be-worse-than-the-average-of-e_outg_1-and-e_outg_2.}}
+
+\hypertarget{derivation}{%
+\subsubsection{Derivation:}\label{derivation}}
+
+Using the mean-square error definition, we have that the error
+\(E_{out}(g)\) on the aggregate hypothesis \(g=\frac{1}{2} (g_1+g_2)\)
+is
+
+\begin{equation}
+E_{out}(g)=\mathbb{E}\left[\left(f-g\right)^2\right]=\mathbb{E}\left[\left(f-\frac{1}{2}(g_1+g_2)\right)^2\right]\,,
+\end{equation}
+
+where we dropped the explicit dependence on the data points \(x\in\chi\)
+on which the expectation value \(\mathbb{E}\) is computed on.
+
+After some algebraic manipulation, using the linearity of \(\mathbb{E}\)
+we can write:
+
+\begin{equation}
+E_{out}(g)=\frac{1}{2}\left\{\mathbb{E}\left[\left(f-g_1\right)^2\right]+\mathbb{E}\left[\left(f-g_2\right)^2\right]\right\}-\frac{1}{4}\mathbb{E}\left[\left(g_1-g_2\right)^2\right]=\frac{E_{out}(g_1)+E_{out}(g_2)}{2}-\sigma^2=\,\bar{E}_{out}-\sigma^2,
+\end{equation}
+
+where
+\(\sigma^2\equiv\frac{1}{4}\mathbb{E}\left[\left(g_1-g_2\right)^2\right]\)
+is a positive defined quantity. This last relation shows that
+\(E_{out}(g)\) is equal or smaller than the average \(\bar{E}_{out}\) of
+\(E_{out}(g_1)\) and \(E_{out}(g_2)\).
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{ }{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+
+\end{Verbatim}
+\end{tcolorbox}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+\end{document}
